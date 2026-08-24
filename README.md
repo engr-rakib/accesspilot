@@ -1,148 +1,359 @@
-# AccessPilot — User Management Portal (UM Portal)
+<div align="center">
 
-AD/Exchange user management, monitoring, and diagnostics tool. Runs on **Linux Docker** (Nginx + PHP 8.2-FPM) and **Windows IIS** (PHP 8.5.4 NTS).
+<img src="public/assets/images/logo_icon.png" alt="AccessPilot logo" width="110"/>
+
+# AccessPilot
+
+### *One portal. Every identity. Zero friction.*
+
+**Enterprise Identity · Active Directory · Exchange Administration Platform**
+
+*a **Trendpilot** product*
+
+![Version](https://img.shields.io/badge/version-7.43-blue)
+![Platform](https://img.shields.io/badge/platform-Linux%20Docker%20%7C%20Windows-success)
+![Runtime](https://img.shields.io/badge/PHP-8.2%20%2B%20Docker%20(recommended)-8892BF?logo=php&logoColor=white)
+![Security](https://img.shields.io/badge/license-RSA--2048%20signed-red)
+![RBAC](https://img.shields.io/badge/RBAC-270%2B%20permission%20keys-orange)
+
+[Website](https://engr-rakib.github.io/web/) · [LinkedIn](https://www.linkedin.com/in/rkbzix/) · [Email Support](mailto:rakibcse47@gmail.com)
+
+</div>
 
 ---
 
-## Quick Start (Linux Docker)
+AccessPilot replaces day-to-day helpdesk toil with a fast, secure, intelligence-driven console for IT operations teams managing hundreds to tens of thousands of directory objects. Every routine identity, mailbox and infrastructure task — done in **seconds**, not ticket queues.
+
+> 💡 **Free trial included** — install and run in **read-only evaluation mode**, no license needed. See [Installation](#-installation) to start, then [Trial & Subscription](#-trial--subscription) when you're ready.
+
+---
+
+## 📖 Table of Contents
+
+- [Why AccessPilot](#-why-accesspilot)
+- [How It Works](#-how-it-works)
+- [Request Lifecycle](#-request-lifecycle)
+- [Feature Highlights](#-feature-highlights)
+- [Feature Pages — Page by Page](#-feature-pages--page-by-page)
+- [Platform & Deployment Models](#️-platform--deployment-models)
+- [Requirements & Installation Layout](#-requirements--installation-layout)
+- [Installation](#-installation)
+- [Trial & Subscription](#-trial--subscription)
+- [Security & Compliance](#-security--compliance)
+- [Documentation](#-documentation)
+- [About Trendpilot](#-about-trendpilot)
+
+---
+
+## 💰 Why AccessPilot
+
+Every approved identity request is a **person-minute drained from your team**. A single admin creates, disables, resets and unblocks accounts dozens of times a day. AccessPilot converts those repetitive, ticket-bound tasks into **seconds**, and makes identity management a **security control** — not a backlog.
+
+| ❌ Without AccessPilot | ✅ With AccessPilot |
+|------------------------|---------------------|
+| 15–20 min to create one AD user by hand | **Seconds** — type an employee ID, click **New User** |
+| Unlock/reset tickets queue for hours | One-click quick actions with instant feedback |
+| Mailbox admin needs PowerShell expertise on-call | Anyone with permission operates mailboxes visually |
+| No AD/Exchange health visibility until something breaks | Proactive monitoring + health checks + diagnostics |
+| Auditing bolted on later, incomplete | Every operation logged & attributable by default |
+
+**What it removes from your budget:**
+
+- ⏱️ **Helpdesk hours** — routine tasks end in clicks, not L1/L2 tickets
+- 🔁 **Human error & rework** — HRMS-driven provisioning gets OU, groups and attributes right the first time
+- 🛡️ **Security exposure** — full audit + instant disable/reduce insider-threat and compliance cost
+- 🧰 **Tool sprawl** — one portal replaces ad-hoc scripts, monitoring tools and viewers
+
+> **You buy AccessPilot to buy back your team's time and make identity a security asset — not a ticket queue.**
+
+---
+
+## ⚙️ How It Works
+
+AccessPilot is one secure console in front of everything your team touches every day.
+
+```
+  Operator / Helpdesk — browser, HTTPS
+             │
+             ▼
+ ┌──────────────────── AccessPilot Portal ────────────────────┐
+ │  Identity Lifecycle · People Insights · Exchange Studio    │
+ │  Observability · Access & Governance · Automation & Reports│
+ └───────────┬──────────────────────────────┬─────────────────┘
+             ▼                              ▼
+      Your Active Directory            Your Mail & Servers
+   (users, groups, OUs, HRMS)     (Exchange, hosts, network)
+```
+
+**A typical workday in seconds:**
+
+1. **Find** — instant lookup; one view merges AD identity + HRMS + security events + workstations.
+2. **Act** — enable, disable, unlock, reset, group change, mailbox edit — single or **bulk** IDs.
+3. **Automate** — type an employee ID → correct OU, groups and attributes applied automatically.
+4. **Protect** — every operation permission-checked (270+ keys) and logged with actor, target, result.
+5. **Observe** — live telemetry, health checks and diagnostics before users complain.
+
+---
+
+## 🔄 Request Lifecycle
+
+Every identity operation follows a complete, auditable journey:
+
+```
+ REQUEST → AUTHORIZE → EXECUTE → VERIFY → AUDIT
+    │          │          │        │         │
+  Employee   RBAC       Backend    Result    Full trail
+  Search   permission  (LDAP /    shown in  (who, what,
+           check       PowerShell) feedback  when, result)
+```
+
+| Stage | What happens |
+|-------|--------------|
+| **Request** | Operator enters an employee ID — single or multiple IDs; ambiguous matches auto-suggested. |
+| **Authorize** | Granular RBAC decides per action — no key, no execution. |
+| **Execute** | LDAP native channel (primary) or PowerShell fallback for complex operations. |
+| **Verify** | Per-user result cards show success / skipped / failed inline — bulk reports each ID. |
+| **Audit** | Every page view and operation appended to the audit log. |
+
+Full operator lifecycle → **[LIFECYCLE.md](docs/LIFECYCLE.md)**
+
+---
+
+## ⭐ Feature Highlights
+
+### 🥇 Top Features
+
+| | Feature | Value |
+|--|---------|-------|
+| ⚡ | **Intelligent user creation** | Employee ID in → correct OU, groups, attributes out (HRMS-driven) |
+| 🔑 | **Quick AD actions** | Enable / disable / unlock / password reset — single or bulk, seconds |
+| 📧 | **Exchange management** | Mailboxes, shared/room/equipment, groups, quotas, permissions, archives |
+| 🖥️ | **Infrastructure monitoring** | vCenter-style live telemetry for hosts & containers |
+| 🗂️ | **Reports & reconciliation** | HRMS↔AD status, user/OU/group reports, CSV exports |
+| 🔎 | **Full audit trail** | Every page view and operation logged |
+
+### 🏆 Advanced Features
+
+| | Feature | Value |
+|--|---------|-------|
+| 🧭 | **Network & email diagnostics** | DNS, SPF/DKIM/DMARC, headers, blacklists, ping/traceroute/MTR/WHOIS, SMTP, BIMI, MTA-STS |
+| 🛡️ | **Defense in depth** | CSRF, rate limiting, IP blocklisting, session hardening, forced termination |
+| 🌐 | **Multi-domain AD** | Multiple forests from one portal; Exchange server auto-discovery |
+| 🔐 | **Granular RBAC** | 270+ permission keys · 19 categories · 4 enforcement layers |
+| 🐞 | **AD health check** | Deep domain-controller assessment with actionable report |
+| 🏛️ | **Service account lifecycle** | Dedicated `svc_` flow — no interactive logon, strong password |
+
+---
+
+## 📄 Feature Pages — Page by Page
+
+Full button-by-button detail in **[APPLICATION_BOOK.md](APPLICATION_BOOK.md)**.
+
+| Page | What you can do | Tier | Guide |
+|------|-----------------|------|-------|
+| **Dashboard** | Command center: quick actions, telemetry, key metrics | 🥇 TOP | [Book](APPLICATION_BOOK.md) |
+| **User Creation** | Automatic (HRMS-driven) or manual provisioning incl. `svc_` accounts | 🥇 TOP | [USER_CREATION.md](docs/client/features/USER_CREATION.md) |
+| **Edit User** | Attributes, OU moves, UPN, display name, contacts | 🥇 TOP | [MODIFY_USER.md](docs/client/features/MODIFY_USER.md) |
+| **Quick Actions** | Enable/disable/unlock/reset — single or bulk | 🥇 TOP | [QUICK_ACTIONS.md](docs/client/features/QUICK_ACTIONS.md) |
+| **User Info** | One-view profile: AD + HRMS + security events + workstations | 🥇 TOP | [GET_USER_INFO.md](docs/client/features/GET_USER_INFO.md) |
+| **Employee Database** | Full HRMS directory search/edit from the portal | 🥈 CORE | [GET_USER_INFO.md](docs/client/features/GET_USER_INFO.md) |
+| **Exchange** | Mailboxes, resources, groups, quotas, archives, monitoring | 🥇 TOP | [EXCHANGE_MANAGEMENT.md](docs/client/features/EXCHANGE_MANAGEMENT.md) |
+| **Monitoring** | Live host/container telemetry, uptime/downtime history | 🥇 TOP | [RESOURCE_MANAGEMENT.md](docs/client/features/RESOURCE_MANAGEMENT.md) |
+| **Email Tools** | DNS, headers, blacklists, validation, SMTP, BIMI, MTA-STS | 🏆 ADVANCED | [EMAIL_ANALYSIS_TOOLS.md](docs/client/features/EMAIL_ANALYSIS_TOOLS.md) |
+| **Access Control** | Roles, 270+ permissions, approvals, online users | 🏆 ADVANCED | [ROLES_AND_PERMISSIONS.md](docs/client/features/ROLES_AND_PERMISSIONS.md) |
+| **Password Manager** | Encrypted shared credential store with sharing toggles | 🏆 ADVANCED | [SECURITY_HARDENING.md](docs/client/features/SECURITY_HARDENING.md) |
+| **Request Portal** | Self-service AD & Exchange requests with approval flow | 🥈 CORE | [REQUEST_PORTAL.md](docs/client/features/REQUEST_PORTAL.md) |
+| **System Configuration** | Platform, directory and Exchange settings | 🥈 CORE | [AD_CONFIGURATION_GUIDE.md](docs/client/guides/AD_CONFIGURATION_GUIDE.md) |
+| **User Activity** | Application event log, audit trail | 🥈 CORE | [SECURITY_HARDENING.md](docs/client/features/SECURITY_HARDENING.md) |
+| **Profile / About** | Operator settings · version info | 🥈 CORE | [Book](APPLICATION_BOOK.md) |
+
+> 🥇 TOP — run the helpdesk on these · 🏆 ADVANCED — platform differentiators · 🥈 CORE — daily operations
+
+---
+
+## 🖥️ Platform & Deployment Models
+
+AccessPilot runs on both major platforms from the **same codebase**. **Linux + Docker is the recommended production platform** — battle-tested in production with pure-LDAP directory access, containerized isolation and one-command operations.
+
+| Aspect | ⭐ Linux (Docker) — recommended | Windows (IIS) |
+|--------|--------------------------------|---------------|
+| Runtime | Container stack (HTTP + HTTPS managed) | Native IIS site with certificate binding |
+| PHP | 8.2 bundled in the container image | 8.5 shipped with the IIS package |
+| HTTPS | Managed by the container stack (auto self-signed → bring your own cert) | IIS certificate binding |
+| Secure area | Mounted outside the web root (`/data/secure`) | Protected directory outside the web root |
+| Directory access | Native LDAP channel | Native LDAP channel |
+| Updates | `git pull` / re-download release + `docker compose up -d --build` | Package reinstall |
+
+---
+
+## 📋 Requirements & Installation Layout
+
+### Hardware requirements
+
+| Resource | Minimum | Recommended |
+|----------|---------|-------------|
+| CPU | 2 vCPU | 4 vCPU |
+| RAM | 2 GB | 4–8 GB |
+| Disk | 20 GB | 50 GB+ SSD (logs & monitoring history grow) |
+| Network | LAN reachability to your Domain Controller (LDAP 389/636) | Same + access to Exchange & HRMS API |
+| Ports | `80` HTTP, `443` HTTPS | Overridable via `APP_PORT` / `APP_PORT_SSL` |
+
+### Where AccessPilot lives (installation target)
+
+**Linux / Docker** (installer default):
+
+```
+/opt/accesspilot/          ← application code (safe to replace on upgrade)
+/data/secure/              ← 🔐 THE VAULT — keep on persistent storage
+├── ldap/<domain>/         ←   AD domain connections & credentials
+├── vendor_issued_licenses/←   license certificates
+├── ssl/                   ←   HTTPS certificate
+└── app_notifications/     ←   notification data
+/data/logs/                ← application + nginx logs
+```
+
+**Windows / IIS** (installer default):
+
+```
+C:\inetpub\accesspilot\           ← application code
+C:\inetpub\accesspilot\public\    ← IIS web root
+C:\inetpub\Desk_secure_files\     ← 🔐 THE VAULT (protected directory, outside web serving)
+C:\access_pilot_logs\             ← application logs
+```
+
+### Environment overrides (optional)
+
+| Variable | Default (Linux · Windows) | Purpose |
+|----------|---------------------------|---------|
+| `APP_PORT` / `APP_PORT_SSL` | `80` / `443` | HTTP / HTTPS listen ports |
+| `ACCESSPILOT_DEST` | `/opt/accesspilot` · `C:\inetpub\accesspilot` | Install target |
+| `ACCESSPILOT_SECURE_BASE_PATH` | `/data/secure` · `C:\inetpub\Desk_secure_files` | Vault location |
+| `ACCESSPILOT_LOG_BASE_PATH` | `/data/logs` · `C:\access_pilot_logs` | Log location |
+
+> 💡 **First boot takes 5–10 minutes** on Linux/Docker: the PHP image is built with PowerShell Core + Kerberos (Exchange integration), network diagnostic tools and PHP extensions baked in. Nginx deliberately waits until the HTTPS certificate is generated, then serves. Subsequent boots are fast.
+
+> ⚠️ **Mount point preference:** put `/data` (or the Windows vault folder) on **dedicated persistent storage — RAID-1 recommended**. The vault holds your AD credentials, license and settings: it must survive container teardown, reinstalls and upgrades. Back it up; everything else is replaceable from a release download.
+
+---
+
+## 🚀 Installation
+
+AccessPilot is **not distributed as a download**. The installer runs on YOUR live server, fetches the product directly and removes the source — the code never exists as a copyable artifact.
+
+### Linux / Docker ⭐ (recommended)
 
 ```bash
-cd /app/accesspilot/docker
-docker compose up -d
+ACCESSPILOT_INSTALL_TOKEN=<your-token> bash <(curl -fsSL https://raw.githubusercontent.com/engr-rakib/accesspilot/main/install.sh)
 ```
 
-Then: `https://<server-ip>/`
+### Windows / IIS (PowerShell)
 
----
-
-## Architecture
-
-```
-Browser ──HTTPS──► nginx (accesspilot_web)
-                       │
-                  FastCGI :9000
-                       │
-                  php-fpm (accesspilot_php)
-                       │
-               ┌───────┴────────┐
-               ▼                ▼
-          AD LDAP :389    Exchange :80
-          (user ops)      (mailbox via WinRM/Kerberos)
+```powershell
+$env:ACCESSPILOT_INSTALL_TOKEN='<your-token>'; irm https://raw.githubusercontent.com/engr-rakib/accesspilot/main/install.ps1 | iex
 ```
 
-**Hybrid SSR+SPA** admin shell. 3-pane UI: Rail 68px, Assistant 280px, Workspace fluid. Dual backend: PHP LDAP (primary) + PowerShell (Exchange fallback via WinRM).
+> 🔑 **The install token is issued by Trendpilot** (the vendor) — see [Trial & Subscription](#-trial--subscription). It grants install rights only and can be revoked anytime.
 
-### Pages
+### What the installer does
 
-| Page | Path | Purpose |
-|------|------|---------|
-| Auth (Admin) | `?page=auth/admin` | AD user admin (enable/disable, pwd reset, unlock, group mgmt, info lookup) |
-| HRMS | `?page=auth/employee_db` | Employee database lookup (directory info) |
-| User Request | `?page=auth/ad_user_request` | New AD user creation request workflow |
-| User Management | `?page=auth/user_management` | App-level user roles & permissions |
-| Password Manager | `?page=auth/password_manager` | LDAP bind password management |
-| Monitoring | `?page=monitoring` | Server monitoring (vCenter VM style) |
-| Exchange | `?page=exchange` | Mailbox & group management via PowerShell |
-| Diagnostics | `?page=tools` | Ping, DNS, traceroute, whois, mtr |
+1. Verifies prerequisites (Docker, git, rsync)
+2. Fetches the product onto **this machine only** (source clone is deleted after deploy)
+3. Creates the vault (`/data/secure`) + logs (`/data/logs`) on persistent storage
+4. Starts the portal — first boot builds the image (5–10 min), then serves HTTPS
+
+Deep dive → **[DOCKER_DEPLOYMENT.md](docs/client/features/DOCKER_DEPLOYMENT.md)**
 
 ---
 
-## Dual Platform
+---
 
-| Aspect | Linux Docker | Windows IIS |
-|--------|-------------|-------------|
-| Web server | Nginx 1.25-alpine | IIS 10 |
-| PHP | 8.2-FPM (ext-ldap, ext-gd) | 8.5.4 NTS (php_ldap.dll) |
-| HTTPS | Container Nginx terminates SSL | IIS binds certificate |
-| Secure vault | `/data/secure` | `C:\inetpub\Desk_secure_files\` |
-| Logs | `/data/logs` | `C:\access_pilot_logs\` |
-| AD backend | LDAP (primary) + PS WinRM (Exchange) | LDAP + local PS (fallback) |
-| Code mount | Docker bind mount (mostly ro) | Direct filesystem |
+## 🎫 Trial & Subscription
+
+AccessPilot is a licensed product by **Trendpilot**. The repository owner is the vendor.
+
+### 🆓 Free Trial — start today
+
+Ask the vendor for a **trial install token** — no payment, no commitment.
+
+- Install on your own server and explore **all 20+ pages, every workflow** — nothing is hidden
+- Runs in read-only evaluation mode until you apply a license
+- Your trial token can be revoked anytime; your server, your data
+
+👉 Email/call the vendor below and you'll get a token, usually within hours.
+
+### 📞 Contact the Vendor (repository owner)
+
+For trials beyond evaluation limits, subscription pricing, demos or questions — contact me directly:
+
+<div align="center">
+
+| | |
+|-|-|
+| 🏢 **Vendor** | **Trendpilot** (this repository's owner) |
+| ✉️ **Email** | [rakibcse47@gmail.com](mailto:rakibcse47@gmail.com) |
+| 📱 **Phone / WhatsApp** | [+880 1955-653548](https://wa.me/8801955653548) — tap to chat or call |
+| 🔗 **LinkedIn** | [linkedin.com/in/rkbzix](https://www.linkedin.com/in/rkbzix/) |
+| 🌐 **Web** | [engr-rakib.github.io/web](https://engr-rakib.github.io/web/) |
+
+</div>
+
+### 💳 How to subscribe
+
+1. **Get a trial token** — contact the vendor, install, evaluate freely on your own server.
+2. **Contact us** — email/call the vendor with your requirement (number of operators, sites).
+3. **Get machine ID** — from the in-app **License Center**, copy your **machine ID + site ID**.
+4. **Receive certificate** — you get an **RSA-2048 signed certificate bound to your deployment**, usually within one business day of payment confirmation.
+5. **Activate** — **License Center → Apply Certificate** → full operational power.
+
+### 🔒 What the license guarantees
+
+- Each certificate is **bound to your deployment** (machine + site ID) — it cannot be copied to another server.
+- Expired or missing license → portal switches to **restricted read-only mode**. Operations never silently run unlicensed.
+- Renewals and status are managed inside the app's **License Center**.
 
 ---
 
-## Key Features
+## 🛡️ Security & Compliance
 
-- **AD User Operations**: Create, enable/disable, unlock, password reset, group membership management
-- **HRMS Integration**: Employee directory info via LDAP
-- **Exchange Mailbox**: Mailbox enable/disable, email addresses, quotas, distribution groups (via PowerShell + WinRM)
-- **Server Monitoring**: vCenter-style container monitoring (CPU, MEM, Disk, Net, PHP-FPM workers, Docker stats) with 60-point trend charts
-- **Diagnostics**: Ping (single/multi), DNS lookup, traceroute, mtr, whois
-- **Multi-ID Support**: Space/comma/semicolon separated inputs for bulk user operations
-- **Notifications**: Bell-based notification system with action taken feedback cards
-- **NOC Tooltips**: Custom declarative tooltip system (no Bootstrap JS dependency)
+- 🛡️ **Defense in depth** — CSRF protection, rate limiting, IP blocklisting, session hardening as defaults
+- 🔐 **Multi-layer RBAC** — 4 enforcement layers keep every screen role-scoped
+- 🔏 **Backend redaction** — secrets masked before they reach logs or UI
+- 📋 **Full auditability** — every page view and operation attributable to an operator
+
+Hardening details → **[SECURITY.md](docs/SECURITY.md)**
 
 ---
 
-## Directories
+## 📚 Documentation
 
-| Path | Purpose |
-|------|---------|
-| `public/` | Web root ± 14 PHP stubs (IIS fallback). `index.php` = front controller, `api/index.php` = API gateway |
-| `app/Application/Http/Controllers/` | 49 snake_case PHP controllers |
-| `app/Application/Http/Router/front_controller.php` | Route map (13 routes) |
-| `app/Application/Middleware/session_guard.php` | 15-min idle timeout (2h remember-me), session regen every 5 min |
-| `app/Ldap/` | PHP LDAP: connection, operations, router, catalog, user writer/repository |
-| `app/Ldap/Router/ad_operation_router.php` | Backend router: `powershell`/`ldap`/`auto` |
-| `app/Domain/ActiveDirectory/ad_action_service.php` | AD action service (PS fallback execution) |
-| `app/Domain/HRMS/directory_info_service.php` | HRMS directory info processing |
-| `app/Infrastructure/PowerShell/` | PowerShell runner + Exchange PS runner (710 lines, 40 cmdlet wrappers) |
-| `config/` | App config, RBAC, PowerShell script map |
-| `resources/views/` | View templates (layouts, pages, components) |
-| `resources/views/layouts/master.php` | 3-pane shell with CSRF token, global fetch(), NOC tooltip init |
-| `public/resources/frontend/` | Frontend JS (modules, admin tools) + CSS (components) |
-| `scripts/` | SSL cert gen, Exchange host resolver, PowerShell templates, cron jobs, monitoring route fix |
-| `docker/` | Docker build/deploy files (Nginx + PHP 8.2-FPM + hardening + backup) |
-| `docker/nginx/` | Nginx config (default.conf, gzip.conf, security-headers.conf) |
-| `docker/deploy/` | Deploy scripts (up, harden, backup, rollback, cleanup) |
-| `docs/` | Technical docs + client-facing feature docs |
+```
+APPLICATION_BOOK.md      ← the full book: every page + button, requirements, tech, workflows
+docs/
+├── ARCHITECTURE.md      ← how the platform is built
+├── LIFECYCLE.md         ← journey of a request, start to end
+├── FEATURES.md          ← the entire feature catalog (39 features)
+├── SECURITY.md          ← security posture and hardening
+└── client/
+    ├── features/        ← feature-by-feature client docs
+    └── guides/          ← configuration & API guides
+```
 
 ---
 
-## Security
+<div align="center">
 
-| Layer | Implementation |
-|-------|---------------|
-| CSRF | `bin2hex(random_bytes(32))` per session, validated on non-GET non-auth API calls |
-| Session | HttpOnly, SameSite=Lax, Secure on HTTPS, regen every 5 min, 15-min idle timeout (2h remember-me) |
-| Rate limiting | 5 failed logins → 30-min lockout; Nginx: login 5r/s, api 30r/s |
-| Password policy | ≥8 chars, upper+lower+digit+special |
-| LDAP injection | `ldap_escape_dn_component()` on all OU fields |
-| Command injection | `powershell_build_command()` escaping |
-| Avatar upload | GD re-encoding, extension whitelist |
-| Password redaction | Regex in PS command logs |
-| Nginx | `server_tokens off`, deny sensitive paths, HSTS, XFO, nosniff, CSP-like headers |
-| PHP | `expose_php Off`, `disable_functions`, `open_basedir`, `allow_url_* Off` |
-| Host | UFW (22-LAN/80/443), fail2ban (3 jails), systemd auto-start, logrotate |
+<img src="public/assets/images/logo_icon.png" alt="AccessPilot" width="72"/>
+
+## 🏢 About Trendpilot
+
+**Trendpilot** builds AccessPilot — identity, Active Directory and Exchange administration that takes seconds, not ticket queues.
+
+[Website](https://engr-rakib.github.io/web/) · [LinkedIn](https://www.linkedin.com/in/rkbzix/) · [rakibcse47@gmail.com](mailto:rakibcse47@gmail.com) · [+880 1955-653548](https://wa.me/8801955653548)
+
+</div>
 
 ---
 
-## Docker Deployment
-
-See `docker/README.md` for:
-- Architecture diagram
-- Request lifecycle flow chart
-- Container blueprint (all mounts, capabilities, startup seq)
-- Security layers (defense in depth)
-- Performance (gzip, FastCGI cache, X-Accel-Redirect)
-- Deploy scripts blueprint
-- Quick commands
-
----
-
-## Reference
-
-| File | Content |
-|------|---------|
-| `docker/README.md` | Full Docker deployment guide |
-| `docker/deploy/DEPLOY.md` | Deployment steps A-Z |
-| `docker/deploy/BACKUP_RESTORE.md` | Operator backup/restore guide |
-| `docs/Technical/nginx/01-hardening-implementation.md` | Nginx hardening details |
-| `docs/Technical/nginx/02-implementation.md` | Performance implementation |
-| `docs/Technical/nginx/01-architecture.md` | Nginx architecture |
-| `docs/Technical/docker/TECHNICAL.md` | Docker technical reference |
-| `docs/Technical/backup_restore/TECHNICAL.md` | Backup/restore technical details |
-| `docs/Technical/exchange/01-architecture.md` | Exchange integration architecture |
-| `docs/client/features/` | Client-facing feature docs (Banglish) |
-| `AGENTS.md` | AI session quick reference |
-| `DEVELOPMENT_GUIDELINES.md` | Full dev guidelines |
+© 2026 Trendpilot · All Rights Reserved.
+*AccessPilot* name, logo and product identity are property of **Trendpilot**. Designed & developed by **RKBZIX**.
+Licensed per deployment — unlicensed evaluation runs limited to read-only mode.

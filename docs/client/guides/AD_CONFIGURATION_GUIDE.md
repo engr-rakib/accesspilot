@@ -6,11 +6,11 @@
 
 ## 1. OU Management
 
-Controls how Organizational Units are auto-created from HRMS API fields during user creation.
+Controls how Organizational Units are auto-created from HRMS data fields during user creation.
 
 ### 1.1 How It Works
 
-When a user is created via HRMS integration, the system reads API fields (e.g., `OPERATING_UNIT_TITLE`, `DEPARTMENT_TITLE`) and builds an OU hierarchy automatically. Each level maps to one HRMS field. Existing OUs are reused. The user is placed in the lowest non-skipped level.
+When a user is created from your HRMS, the system reads the HRMS data fields (e.g., `OPERATING_UNIT_TITLE`, `DEPARTMENT_TITLE`) and builds an OU hierarchy automatically. Each level maps to one HRMS field. Existing OUs are reused. The user is placed in the lowest non-skipped level.
 
 ### 1.2 The 5-Level Hierarchy
 
@@ -37,7 +37,7 @@ OU=OperatingUnit → OU=Department → OU=Section → OU=Product → OU=SubSecti
 
 ### 1.4 Level Field Mapping
 
-Each level dropdown lists available HRMS API fields:
+Each level dropdown lists available HRMS fields:
 
 - `OPERATING_UNIT_TITLE`
 - `DEPARTMENT_TITLE`
@@ -67,7 +67,7 @@ Specify a container where all auto-created OUs are placed. For example, if you h
 
 ```
 OU=OperatingUnit → OU=Department → OU=Section → ... 
-     (all created under OU=CompanyUsers,DC=domain,DC=com)
+     (all created under the Root OU you selected)
 ```
 
 Leave empty to create OUs directly at the domain root.
@@ -79,8 +79,8 @@ As you configure levels, the preview panel updates in real time showing the expe
 ### 1.8 Saving
 
 1. Click **Save to Domain** to persist the configuration
-2. The config is stored per-domain (each domain can have its own OU mapping)
-3. To revert, click **Reset** to reload the saved config from the server
+2. The settings are saved per-domain (each domain can have its own OU mapping)
+3. To revert, click **Reset** to reload the saved settings from the server
 4. Toggle Customize OFF to restore the default 5-level hierarchy
 
 ---
@@ -137,15 +137,15 @@ Same as OU Management: click **Save to Domain** to persist per-domain.
 
 ## 3. User Properties Configuration
 
-Controls which HRMS API fields map to which Active Directory user attributes during creation and sync.
+Controls which HRMS data fields map to which Active Directory user attributes during creation and sync.
 
 ### 3.1 How It Works
 
-When a user is created or updated, the system takes data from the HRMS API response and writes it to specific AD attributes. The mapping is defined per-domain.
+When a user is created or updated, the system takes the HRMS data and writes it to specific AD attributes. The mapping is defined per-domain.
 
 ### 3.2 HRMS → AD Field Mapping
 
-| HRMS API Field | AD Attribute | Configurable? | Example Value |
+| HRMS Field | AD Attribute | Configurable? | Example Value |
 |----------------|-------------|---------------|---------------|
 | `FULL_NAME` | `DisplayName` | Fixed | `John Doe` |
 | `EMPLOYEE_ID` | `EmployeeID` | Fixed | `EMP00123` |
@@ -207,7 +207,7 @@ When setting up a new domain:
 
 | Issue | Likely Cause | Solution |
 |-------|-------------|----------|
-| OU not created | Field value is empty in HRMS data | Check the HRMS API response for that field |
+| OU not created | Field value is empty in HRMS data | Check the HRMS data for that field |
 | User not in correct OU | Level mapping is wrong | Verify each level's field assignment |
 | Group not created | Auto-Create Groups is OFF | Enable auto-create in Group Management |
 | Group has wrong name | Conditional rule is matching incorrectly | Check rule field/value and order |
@@ -216,4 +216,4 @@ When setting up a new domain:
 
 ---
 
-*For detailed technical reference, see the [AD Objects Config](index.php?page=ad-objects) document.*
+*For detailed configuration reference, see the **AD Objects** tab under System Config in the portal.*

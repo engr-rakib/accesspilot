@@ -4,7 +4,7 @@
 
 A director calls — they can't send emails. A new hire needs a mailbox by lunch. Your CEO wants to know why a critical message hasn't been delivered. The CFO is asking about mailbox storage quotas. And somewhere in the queue, 15,000 emails are stuck.
 
-You don't open Exchange Admin Center. You don't remember PowerShell cmdlets. You don't click through four levels of menus.
+You don't open Exchange Admin Center. You don't remember command-line commands. You don't click through four levels of menus.
 
 **You open one page. And everything is right there.**
 
@@ -14,7 +14,7 @@ You don't open Exchange Admin Center. You don't remember PowerShell cmdlets. You
 
 Not just mailboxes. Not just groups. **Everything.** Mailbox management, distribution groups, database monitoring, quota reports, mail queues, transport rules, message tracking, retention policies, archive management, permissions — all in one beautiful, instant interface.
 
-Every action you'd normally do in EAC or PowerShell. In one place. With one click.
+Every action you'd normally do in EAC or a command-line tool. In one place. With one click.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -41,22 +41,22 @@ Every action you'd normally do in EAC or PowerShell. In one place. With one clic
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**Search once. Control everything. No EAC. No PowerShell.**
+**Search once. Control everything. No EAC. No command lines.**
 
 ---
 
 ## Why This Changes Everything
 
-### Stop Living in PowerShell
+### Stop Living in the Command Line
 
 | Before This Platform | With This Platform |
 |---------------------|-------------------|
 | Open EAC → navigate → click through properties | Type a name → see everything |
-| Open PowerShell → type cmdlets → format manually | Buttons. Every action. One click. |
+| Open a command window → type commands → format manually | Buttons. Every action. One click. |
 | Search for a group on one screen, a mailbox on another | Combined search — find both instantly |
 | Copy email addresses, quotas, statuses manually | All displayed, all actionable |
 | Open separate monitoring tools for queues, databases, rules | One monitoring tab with everything |
-| Remember 50+ PowerShell cmdlets | Click buttons — the system knows what to do |
+| Remember 50+ complex commands | Click buttons — the system knows what to do |
 
 ### Find & Fix in Seconds, Not Minutes
 
@@ -89,7 +89,7 @@ Find a mailbox and the entire toolkit appears:
 - **Manage calendar permissions**
 - **Restore mailbox** from a previous state
 
-Each action confirms immediately. **No context switching. No PowerShell. No delays.**
+Each action confirms immediately. **No context switching. No command lines. No delays.**
 
 ```
 Quota: ──────●──────────────── 4.2 GB / 10 GB
@@ -137,7 +137,7 @@ For new employees: create their AD user AND enable their Exchange mailbox in one
 
 ### Connection Doesn't Matter — It Just Works
 
-The system auto-discovers your Exchange servers via LDAP, establishes a PowerShell session with Kerberos authentication, and manages credentials securely. If something's wrong, the **Test Connection** button tells you exactly what to fix.
+The system finds your Exchange servers automatically and connects through a secure, ticket-based channel — credentials are managed safely for you. If something's wrong, the **Test Connection** button tells you exactly what to fix.
 
 ---
 
@@ -169,7 +169,7 @@ The system auto-discovers your Exchange servers via LDAP, establishes a PowerShe
 
 ## In Short
 
-**Exchange Management** replaces EAC, PowerShell, and your monitoring tools with one unified experience. Search, view, act — for mailboxes, groups, databases, queues, rules, and policies.
+**Exchange Management** replaces EAC, the command line, and your monitoring tools with one unified experience. Search, view, act — for mailboxes, groups, databases, queues, rules, and policies.
 
 Your entire Exchange environment. One page. Full control.
 

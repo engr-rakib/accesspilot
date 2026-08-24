@@ -8,7 +8,7 @@ Without automation: an admin manually creates the AD account, picks an OU, assig
 
 With AccessPilot: you type the employee ID. Press **New User**. The system handles everything — OU placement, group assignment, attribute population — all from HRMS data. The account is ready in seconds.
 
-Now imagine the edge cases: a contractor who isn't in the HRMS database. A service account for a print server. An existing employee who needs their account rebuilt. The **Manual** button handles those.
+Now imagine the edge cases: a contractor who isn't in the HRMS records. A service account for a print server. An existing employee who needs their account rebuilt. The **Manual** button handles those.
 
 ---
 
@@ -49,9 +49,9 @@ System auto-creates OU path:
 System auto-assigns group:
   Creates or finds "{Section Name} Group" → adds user
 
-System sets all AD attributes:
-  samAccountName, userPrincipalName, displayName, title,
-  department, company, office, mail, manager, etc.
+System sets all AD fields:
+  logon name, display name, title,
+  department, company, office, email, manager, etc.
 ────────────────────────────────────────────────────────────
 User created. Ready in seconds.
 ```
@@ -60,7 +60,7 @@ User created. Ready in seconds.
 
 | Capability | What It Does |
 |------------|-------------|
-| **HRMS auto-fetch** | Queries HRMS database using the employee ID — no manual data entry needed |
+| **HRMS auto-fetch** | Fetches employee details from HRMS using the employee ID — no manual data entry needed |
 | **Smart OU routing** | Builds the OU path from HRMS organizational hierarchy — users land exactly where they belong |
 | **Auto OU creation** | If the required OU doesn't exist, it's created automatically — no pre-configuration needed |
 | **Intelligent group assignment** | Auto-creates or assigns a group matching the user's section/team |
@@ -174,7 +174,7 @@ Process:
 
 | Aspect | New User (Automated) | Manual |
 |--------|---------------------|--------|
-| **Data source** | HRMS database via employee ID | User provides all fields |
+| **Data source** | HRMS records via employee ID | User provides all fields |
 | **OU assignment** | Auto-detected from HRMS hierarchy | User selects via tree search |
 | **Group assignment** | Auto-created/assigned from OU | User selects via multi-search |
 | **Attributes** | Populated entirely from HRMS | User-provided + HRMS fallback |
@@ -205,7 +205,7 @@ Process:
 |---------|--------|
 | **Instant onboarding** | New users ready in seconds, not hours |
 | **Zero errors** | No mistyped attributes or wrong OUs — HRMS data is authoritative |
-| **Self-organizing** | OUs and groups are auto-created — no pre-config needed |
+| **Self-organizing** | OUs and groups are auto-created — no pre-settings needed |
 | **Full coverage** | Automated for employees, manual for everything else |
 | **Bulk capable** | Handle 1 user or 100 with the same workflow |
 | **Service account support** | Dedicated flow with naming conventions and policies |
@@ -220,7 +220,7 @@ Process:
 
 Together, they cover every user creation scenario — from bulk onboarding of 100 new employees to creating a single service account for a print server.
 
-No AD tools. No PowerShell commands. No manual OU lookups.
+No AD tools. No command-line commands. No manual OU lookups.
 
 Type an ID. Click a button. The user is created.
 

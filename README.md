@@ -34,6 +34,7 @@ AccessPilot replaces day-to-day helpdesk toil with a fast, secure, intelligence-
 - [How It Works](#-how-it-works)
 - [Request Lifecycle](#-request-lifecycle)
 - [Feature Highlights](#-feature-highlights)
+- [Feature Deep Dive](#-feature-deep-dive)
 - [Feature Pages — Page by Page](#-feature-pages--page-by-page)
 - [Platform & Deployment Models](#️-platform--deployment-models)
 - [Requirements & Installation Layout](#-requirements--installation-layout)
@@ -142,6 +143,68 @@ Full operator lifecycle → **[LIFECYCLE.md](docs/LIFECYCLE.md)**
 | 🔐 | **Granular RBAC** | 270+ permission keys · 19 categories · 4 enforcement layers |
 | 🐞 | **AD health check** | Deep domain-controller assessment with actionable report |
 | 🏛️ | **Service account lifecycle** | Dedicated `svc_` flow — no interactive logon, strong password |
+
+---
+
+## 🔍 Feature Deep Dive
+
+### 🔐 Password Manager — encrypted shared credentials
+
+Team passwords never live in chat threads, spreadsheets or sticky notes again.
+
+- **AES-encrypted at rest** — every credential is encrypted before it touches the database; plaintext never touches disk
+- **Personal & shared vaults** — keep private credentials private, or toggle **sharing** so the right operators (permission-checked) can retrieve them
+- **One-click copy** — copy-to-clipboard with automatic status-line stripping, so no metadata leaks into tickets
+- **Full audit** — every view/copy/create/delete of a credential is logged with actor and timestamp
+- **RBAC-scoped** — who can create, share or retrieve is controlled by the same 270+ key permission system
+
+### 🗂️ OU & Groups Manager — full directory structure control
+
+Build and reshape your Active Directory tree without ever opening ADUC.
+
+- **Create / delete OUs** — organize your directory hierarchy in seconds
+- **Create / delete groups** — security and distribution groups, full lifecycle
+- **Membership management** — add or remove members from any group with fast pickers
+- **Group & OU browsing** — searchable selectors wired into every workflow (user creation, modify, reports)
+- **Safe deletes** — confirmation-guarded destructive operations, everything audited
+
+### 🔄 HRMS ↔ AD Sync — one source of truth
+
+Your HR system knows who should exist; AccessPilot makes the directory agree.
+
+- **Intelligent provisioning** — type an employee ID → correct OU, groups, attributes, manager info pulled from HRMS automatically
+- **Reconciliation report** — instantly spot divergences: users in AD but not in HRMS, HRMS entries missing an AD account, attribute mismatches
+- **Employee Database** — full HRMS directory search and CRUD from inside the portal
+- **AD↔HRMS status view** — per-user side-by-side comparison, always current
+- **Offboarding safety** — disable + attribute-clear flows driven by HR truth, not memory
+
+### 📊 Reports & Exports — audit-ready in one click
+
+- **User reports** — full attribute dumps, filterable, exportable to CSV
+- **OU & Group reports** — membership counts, nested structure, empty-group detection
+- **HRMS↔AD reconciliation reports** — compliance evidence, exportable
+- **Activity & audit exports** — who did what, when, filtered by operator/target/date
+
+### 🩺 AD Health Check — know before it breaks
+
+- **Deep domain-controller assessment** — replication, services, time sync, DNS, free disk, FSMO
+- **Actionable report** — not just red/green: each finding ships with what it means and how to fix it
+- **Scheduled or on-demand** — run from the portal any time; results stay in history for trend comparison
+
+### ⚡ And the day-to-day savers
+
+| | Feature | What it does |
+|--|---------|--------------|
+| ⚡ | **Bulk multi-ID operations** | Paste `emp01, emp02 emp03` — enable/disable/unlock/reset all at once, per-user results |
+| 🏛️ | **Service account lifecycle** | Dedicated `svc_` flow: strong password enforced, no interactive logon, no admin groups |
+| 🕵️ | **Security events & workstations** | Forensic per-user view: security events + every workstation they joined |
+| 📮 | **Self-service request portal** | Users request AD/Exchange changes (15+15 types); admins approve/deny with tracking |
+| 🔔 | **Notification center** | Bell, toasts, broadcasts, admin announcements, preferences |
+| 🌍 | **Multi-domain AD** | Several forests, one portal — each domain with its own settings & Exchange auto-discovery |
+| 🚫 | **IP blocking** | Blocklist/allowlist with CIDR at the web edge — attackers get silence, your team stays safe |
+| 🎨 | **7 themes** | Corporate Blue → Matte Black; app-like navigation, zero page reloads |
+
+> 📚 **Full catalog** — all 39 features with entry points and value mapping: [FEATURES.md](docs/FEATURES.md) · page-by-page guide: [APPLICATION_BOOK.md](APPLICATION_BOOK.md)
 
 ---
 

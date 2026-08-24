@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/assets/images/logo_icon.png" alt="AccessPilot logo" width="110"/>
+<img src="assets/logo_icon.png" alt="AccessPilot logo" width="110"/>
 
 # AccessPilot
 
@@ -342,7 +342,7 @@ docs/
 
 <div align="center">
 
-<img src="public/assets/images/logo_icon.png" alt="AccessPilot" width="72"/>
+<img src="assets/logo_icon.png" alt="AccessPilot" width="72"/>
 
 ## 🏢 About Trendpilot
 

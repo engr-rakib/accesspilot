@@ -208,6 +208,42 @@ Your HR system knows who should exist; AccessPilot makes the directory agree.
 
 ---
 
+## 📸 Preview
+
+<div align="center">
+
+**A look inside the portal** — real screens, real workflows.
+
+<img src="assets/screenshots/dashboard.png" alt="Dashboard — control room" width="92%"/>
+<sub><b>Dashboard</b> — quick actions, live monitoring, activity & notifications at a glance</sub>
+
+<br/><br/>
+
+<img src="assets/screenshots/password_manager.png" alt="Password Manager" width="92%"/>
+<sub><b>Password Manager</b> — encrypted shared credential vault with sharing toggles</sub>
+
+<br/><br/>
+
+<table>
+<tr>
+<td width="50%"><img src="assets/screenshots/ou_groups.png" alt="OU & Groups Manager"/><br/><sub><b>OU & Groups Manager</b></sub></td>
+<td width="50%"><img src="assets/screenshots/hrms_ad_sync.png" alt="HRMS ↔ AD Sync"/><br/><sub><b>HRMS ↔ AD Sync</b> — reconciliation view</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="assets/screenshots/monitoring.png" alt="Infrastructure Monitor"/><br/><sub><b>Infrastructure Monitor</b> — vCenter-style telemetry</sub></td>
+<td width="50%"><img src="assets/screenshots/exchange.png" alt="Exchange Management"/><br/><sub><b>Exchange</b> — mailboxes, groups, permissions</sub></td>
+</tr>
+</table>
+
+<br/>
+
+<img src="assets/screenshots/ad_health_check.png" alt="AD Health Check" width="92%"/>
+<sub><b>AD Health Check</b> — deep domain-controller assessment with actionable report</sub>
+
+</div>
+
+---
+
 ## 📄 Feature Pages — Page by Page
 
 Full button-by-button detail in **[APPLICATION_BOOK.md](APPLICATION_BOOK.md)**.

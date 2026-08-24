@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo_icon.png" alt="AccessPilot logo" width="110"/>
+<img src="assets/accesspilot_bg.png" alt="AccessPilot — Smart Access. Secure Business. Zero Manual Effort." width="100%"/>
 
 # AccessPilot
 
@@ -315,6 +315,10 @@ For trials beyond evaluation limits, subscription pricing, demos or questions �
 
 ## 🛡️ Security & Compliance
 
+<div align="center">
+<img src="assets/bg2.gif" alt="Defense in depth" width="480"/>
+</div>
+
 - 🛡️ **Defense in depth** — CSRF protection, rate limiting, IP blocklisting, session hardening as defaults
 - 🔐 **Multi-layer RBAC** — 4 enforcement layers keep every screen role-scoped
 - 🔏 **Backend redaction** — secrets masked before they reach logs or UI
@@ -345,6 +349,10 @@ docs/
 <img src="assets/logo_icon.png" alt="AccessPilot" width="72"/>
 
 ## 🏢 About Trendpilot
+
+<div align="center">
+<img src="assets/bg4.jpg" alt="Global identity infrastructure" width="100%"/>
+</div>
 
 **Trendpilot** builds AccessPilot — identity, Active Directory and Exchange administration that takes seconds, not ticket queues.
 

@@ -224,7 +224,7 @@
             const baseDnField = document.getElementById('domainFormBaseDn');
             if (!host || baseDnField.value) return;
 
-            // Extract domain from host (e.g., "dc01.example.com" -> "example.com" -> "DC=example,DC=com")
+            // Extract domain from host (e.g., "dc01.wgbd.com" -> "wgbd.com" -> "DC=wgbd,DC=com")
             const parts = host.split('.');
             if (parts.length >= 2) {
                 const domainParts = parts.slice(-2);

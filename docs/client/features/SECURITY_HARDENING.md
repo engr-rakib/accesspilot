@@ -4,20 +4,20 @@
 
 ---
 
-## Layer 1: Web Gateway
+## Layer 1: Nginx Level
 
 ### 1.1 Rate Limiting
 **Ki kora hoise:**
 - Login page: 5 request per second (burst 3)
-- Portal data: 30 request per second (burst 20)
+- API: 30 request per second (burst 20)
 - Static files: 100 request per second (burst 50)
 - Connection limit: 10 concurrent per IP
 
 **Benefit:**
 - Brute force attack hole — login attempt auto block hoy
-- Automated abuse prevent kore
+- API滥用 (abuse) prevent kore
 - DDoS er basic level protection
-- Akta user 1000 request/sec pathaileo — amar server safe
+- Akta user 1000 request/sec pathaileo — amar server secure
 
 ```
 Attack scenario:     Normal scenario:
@@ -25,7 +25,7 @@ Attack scenario:     Normal scenario:
               │                     │
               ▼                     ▼
          ❌ BLOCKED            ✅ ALLOWED
-         (too many reqs)      (normal response)
+         (429 Too Many)       (normal response)
 ```
 
 ### 1.2 Security Headers
@@ -46,19 +46,19 @@ Attack scenario:     Normal scenario:
 - Third party site amader URL leak pabe na
 
 ### 1.3 Bot Blocking
-**Ki kora hoise:** 20+ known attack and scanner patterns block kora hoise:
-- Common WordPress admin and login paths — WordPress attackers
+**Ki kora hoise:** 20+ known bot/wp-admin/attacker pattern block kora hoise:
+- `wp-admin`, `wp-content`, `wp-includes`, `xmlrpc.php` — WordPress attackers
 - `phpmyadmin`, `adminer` — DB tool scanners
 - `.env`, `.git`, `.svn`, `.hg` — Source code leak prevention
-- `composer.json`, `package.json`, `artisan` — Development-file detection
+- `composer.json`, `package.json`, `artisan` — Framework fingerprinting
 - `Dockerfile`, `docker-compose.yml` — Container info leak
 - `.bak`, `.swp`, `.sql`, `.log`, `.tar.gz` — Backup file access
-- `cgi-bin` — Exploit scanners
+- `cgi-bin` — CGI exploit scanners
 - Hidden files (`.`) — Full deny
 
 **Benefit:**
 - Internet e rotating bots amader site scan korleo — 404 pabe (not 403, so they can't distinguish valid paths)
-- Requests are stopped at the front door before any application work happens
+- PHP-FPM e request e pochhay na — nginx level e block hoy
 
 ### 1.4 Request Size Limits
 **Ki kora hoise:**
@@ -66,7 +66,7 @@ Attack scenario:     Normal scenario:
 |----------|--------------|
 | Login/Auth | 1 MB |
 | Main app | 1 MB |
-| Portal data | 10 MB (global) |
+| API | 10 MB (global) |
 | File upload (employees) | 10 MB |
 
 **Benefit:**
@@ -80,7 +80,7 @@ Attack scenario:     Normal scenario:
 |---------|-------|
 | Protocols | TLSv1.2 + TLSv1.3 |
 | Ciphers | HIGH:!aNULL:!MD5 |
-| Session resumption | shared:SSL:10m |
+| Session cache | shared:SSL:10m |
 | Session timeout | 10 min |
 | Session tickets | off |
 
@@ -93,96 +93,100 @@ Attack scenario:     Normal scenario:
 **Ki kora hoise:**
 | Buffer | Size |
 |--------|------|
-| Client body buffer | 128 KB |
-| Response buffers | 16 × 16 KB |
-| Primary response buffer | 32 KB |
-| Busy response buffer | 128 KB |
+| `client_body_buffer_size` | 128 KB |
+| `fastcgi_buffers` | 16 × 16 KB |
+| `fastcgi_buffer_size` | 32 KB |
+| `fastcgi_busy_buffers_size` | 128 KB |
 
 **Benefit:**
 - Slow client attack (slow read/post) prevent kore
 - Memory usage optimized
-- Buffer settings keep stalled connections from tying up resources
+- PHP-FPM dirty buffer problem fixed (busy_buffers_size < total buffers)
 
 ### 1.7 HTTP/2
-**Ki kora hoise:** HTTP/2 enabled on the secure port.
+**Ki kora hoise:** HTTP/2 enabled on port 443.
 
 **Benefit:**
 - Multiplexing: akta connection e multiple request parallel pathano jay
 - Header compression: less bandwidth
+- Server push: future e static assets push kora jabe
 
 ### 1.8 Logging Hardening
 **Ki kora hoise:**
-- Access logs buffered (flush every few seconds) — disk I/O kombe
-- Static file requests log kore na — log size kombe
-- Version info hide kore
+- `access_log` buffered (64 KB, flush every 5s) — disk I/O kombe
+- Static assets (`/resources/`, `/assets/`) log kore na — log size kombe
+- `server_tokens off` — nginx version hide kore
 
 **Benefit:**
 - Log flood attack e disk full hobe na
-- Attacker version info detect korte parbe na
+- Attacker nginx version detect korte parbe na
 
 ---
 
 ## Layer 2: Container Level
 
-### 2.1 Web Gateway Container Changes
+### 2.1 Nginx Container Changes
 | Change | Why |
 |--------|-----|
-| Read-only files | Attacker container break korleo files change korte parbe na |
-| Healthcheck | Container running ache ki na monitor kora jay |
-| In-memory serving | Recent results served from fast memory (fast + secure) |
-| Ordered startup | Components start in the right order |
+| Read-only volumes (`:ro`) | Attacker container break korleo files change korte parbe na |
+| Healthcheck (`nginx -t`) | Container running ache ki na monitor kora jay |
+| tmpfs for cache | FastCGI cache in-memory (fast + secure) |
+| Depends on php | PHP container age start hote hobe |
 
-### 2.2 Application Container Changes
-| Area | Read-only | Purpose |
+### 2.2 PHP Container Changes
+| File | Read-only | Purpose |
 |------|-----------|---------|
-| Web content | ✅ | Served pages — read-only |
-| Interface materials | ✅ | Screens, styles, scripts |
-| Runtime data | ❌ writable | Live data |
-| Secure vault | ❌ writable | Accounts, settings, logs |
+| `public/` | ✅ :ro | Web root — read-only |
+| `resources/` | ✅ :ro | Views, CSS, JS |
+| `App_Data/` | ❌ writable | Runtime data |
+| `secure path` | ❌ writable | Vault, config, logs |
 
-**Benefit:** Attacker web shell upload korleo — run korte parbe na (web content read-only).
+**Benefit:** Attacker web shell upload korleo — execute korte parbe na (public directory read-only).
 
 ---
 
 ## Layer 3: Host Level (Docker Host)
 
-### 3.1 Firewall
+### 3.1 UFW Firewall
 | Port | Protocol | Allow From | Reason |
 |------|----------|------------|--------|
-| 22 | TCP | LAN only | Remote admin access |
+| 22 | TCP | LAN only | SSH access |
 | 80 | TCP | Any | HTTP redirect |
 | 443 | TCP | Any | HTTPS |
 
 - Default: **deny incoming**, allow outgoing
-- Container ports: **empty** (direct mapping only)
+- DOCKER-USER chain: **empty** (direct port mapping)
 
-### 3.2 Automated Attacker Blocking
-| Rule | Action | Max Retry | Ban Time |
+### 3.2 Fail2ban
+| Jail | Action | Max Retry | Ban Time |
 |------|--------|-----------|----------|
-| Login abuse | Block IP | 5 | 10 min |
-| Bot probing | Block IP | 10 | 1 hour |
-| Brute force | Block IP | 10 | 30 min |
+| nginx-http-auth | Block IP | 5 | 10 min |
+| nginx-botsearch | Block IP | 10 | 1 hour |
+| nginx-brute-force | Block IP | 10 | 30 min |
 
 **Benefit:** Automated IP blocking for repeated attack attempts.
 
-### 3.3 Auto-Start
-**Ki kora hoise:** A system service keeps the portal running.
+### 3.3 Systemd Auto-Start
+**Ki kora hoise:** 
+```
+/etc/systemd/system/accesspilot.service
+```
 - Server reboot hole auto start hobe
-- Infrastructure ready na hoye thakle wait kore
+- Docker daemon ready na hoye thakle wait kore
 
 **Benefit:** Kono manual intervention lagbe na — server restart holeo app automatic up hoy.
 
-### 3.4 Log Rotation
-**Ki kora hoise:** Logs rotate daily.
+### 3.4 Logrotate
+**Ki kora hoise:** `/etc/logrotate.d/accesspilot-nginx`
 - Daily rotation
 - 30 days retention
-- Clean reopen after rotation
+- `nginx -s reopen` after rotation
 
 **Benefit:** Disk full hobe na log diye. Old log auto delete hoy.
 
 ### 3.5 Docker Network
-- Internal network: isolated subnet
-- Health stats: internal only
+- Internal network: `172.18.0.0/16`
+- nginx_status: internal only (172.18.0.0/16 + 127.0.0.1)
 - No ports exposed between containers
 
 **Benefit:** Containers isolated. Direct container access possible na.
@@ -194,42 +198,43 @@ Attack scenario:     Normal scenario:
 ### Scenario 1: Brute Force Attack
 ```
 Before Hardening:
-  Attacker ──► 1000 login/min ──► portal busy ──► Server CPU 100%
+  Attacker ──► 1000 login/min ──► PHP-FPM busy ──► Server CPU 100%
                                       │
                                       ▼
                               ❌ Server crash
 
 After Hardening:
-  Attacker ──► 1000 login/min ──► rate limit
+  Attacker ──► 1000 login/min ──► Nginx rate limit
                                       │
                                       ▼
                               ❌ 429 Too Many Requests
                               (5 req/sec only allowed)
-                              ✅ Portal stays responsive for real users
+                              ✅ PHP-FPM free for real users
 ```
 
 ### Scenario 2: WordPress Scanner Bot
 ```
-Bot ──► /wp-admin/ ──► Portal ──► 404 (blocked)
-Bot ──► /wp-content/ ──► Portal ──► 404 (blocked)
-Bot ──► /xmlrpc ──► Portal ──► 404 (blocked)
-Bot ──► /.env ──► Portal ──► 404 (blocked)
+Bot ──► /wp-admin/ ──► Nginx ──► 404 (blocked)
+Bot ──► /wp-content/ ──► Nginx ──► 404 (blocked)
+Bot ──► /xmlrpc.php ──► Nginx ──► 404 (blocked)
+Bot ──► /.env ──► Nginx ──► 404 (blocked)
                               │
                               ▼
-                      ✅ automated detection → ban IP
+                      ✅ fail2ban detects → ban IP
 ```
 
-### Scenario 3: Slow Connection Attack
+### Scenario 3: Slowloris Attack
 ```
-Attacker ──► Slow HTTP headers ──► Portal
+Attacker ──► Slow HTTP headers ──► Nginx
                                       │
                                       ▼
-                          stalled connections
-                          are closed quickly
+                          client_body_timeout 15s
+                          client_header_timeout 15s
+                          send_timeout 15s
                                       │
                                       ▼
                           ❌ Connection closed
-                          ✅ Gateway stays free for real users
+                          ✅ Nginx worker free
 ```
 
 ---
@@ -238,22 +243,31 @@ Attacker ──► Slow HTTP headers ──► Portal
 
 | Layer | Feature | Threat Mitigated |
 |-------|---------|-----------------|
-| Web gateway | Rate limiting | Brute force, automated abuse |
-| Web gateway | Security headers | Clickjacking, XSS, MITM |
-| Web gateway | Bot blocking | Scanners, known attackers |
-| Web gateway | Request limits | Buffer overflow, memory exhaustion |
-| Web gateway | SSL/TLS hardening | Weak cipher, outdated-version downgrade |
-| Web gateway | Request buffering | Slow client attacks |
-| Web gateway | HTTP/2 | Performance (not security directly) |
-| Container | Read-only files | Web shell upload |
-| Host | Firewall | Network level access control |
-| Host | Automated blocking | Repeated attacker blocking |
-| Host | Auto-start service | Service availability |
-| Host | Log rotation | Disk space management |
+| Nginx | Rate limiting | Brute force, API abuse |
+| Nginx | Security headers | Clickjacking, XSS, MITM |
+| Nginx | Bot blocking | Scanners, known attackers |
+| Nginx | Request limits | Buffer overflow, memory exhaustion |
+| Nginx | SSL/TLS hardening | Protocol downgrade, weak cipher |
+| Nginx | Request buffering | Slow client attacks |
+| Nginx | HTTP/2 | Performance (not security directly) |
+| Container | Read-only volumes | Web shell upload |
+| Host | UFW | Network level access control |
+| Host | fail2ban | Automated attacker blocking |
+| Host | systemd | Service availability |
+| Host | logrotate | Disk space management |
 | Host | Docker network | Container isolation |
 
 ---
 
-## References
+## Files Referenced
 
-These protections are built into the standard deployment. To apply or verify them on your own servers, see the portal admin guide.
+| File | Purpose |
+|------|---------|
+| `docker/nginx/default.conf` | All nginx-level hardening |
+| `docker/nginx/security-headers.conf` | 6 security headers |
+| `docker/nginx/gzip.conf` | Gzip compression |
+| `docker/docker-compose.yml` | Container settings, read-only mounts |
+| `docker/deploy/harden.sh` | Host-level hardening script |
+| `/etc/systemd/system/accesspilot.service` | Systemd auto-start |
+| `/etc/fail2ban/jail.local` | fail2ban config |
+| `/etc/logrotate.d/accesspilot-nginx` | Log rotation |

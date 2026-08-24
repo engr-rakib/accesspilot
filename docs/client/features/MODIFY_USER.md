@@ -44,9 +44,9 @@ The Modify form puts every AD attribute that matters into one clean interface. I
 
 | Field | What It Changes | What Happens Automatically |
 |-------|----------------|---------------------------|
-| **Display Name** | The name shown on the account | The account's directory name is updated alongside — both stay in sync |
-| **Username** | The user's logon name | The matching domain logon name is refreshed too — no manual fix needed |
-| **Description** | The description shown on the account | Simple text update |
+| **Display Name** | `displayName` attribute | Updates the CN (Common Name) in LDAP automatically |
+| **Username** | `sAMAccountName` attribute | `userPrincipalName` (UPN) is also updated to match the new domain — no manual UPN fix needed |
+| **Description** | `description` attribute | Simple text update |
 
 ### OU Migration
 
@@ -55,10 +55,10 @@ Moving a user from one OU to another is a single dropdown selection:
 1. The form shows the user's **current OU path**
 2. Type to search for the **new OU** — the tree search widget finds matching OUs instantly
 3. Select the new OU
-4. On update, the system moves the user account to the new OU with one click
-5. The account name is refreshed to match the Display Name
+4. On update, the system calls `ldap_rename()` which moves the user object to the new parent OU
+5. The CN is automatically updated to match the Display Name
 
-**What happens behind the scenes:** The account's full address in the directory changes so it now lives under the new department. No group memberships are lost — they follow the user, not the folder.
+**What happens technically:** The user's Distinguished Name changes from `CN=John Doe,OU=Engineering,DC=domain,DC=com` to `CN=John Doe,OU=Marketing,DC=domain,DC=com`. All group memberships remain intact — groups store references by SID, not DN.
 
 | Scenario | Before | After |
 |----------|--------|-------|
@@ -75,12 +75,12 @@ Groups are managed through a **multi-select tag interface**:
 3. **Click a group** to add it — it appears as a tag
 4. **Click the X on a tag** to remove it — the user will be removed from that group
 
-**What happens behind the scenes:**
+**What happens technically:**
 
-| Action | What Happens |
-|--------|-------------|
-| Add to group | The user is added to the group's member list |
-| Remove from group | The user is removed from the group's member list |
+| Action | LDAP Operation |
+|--------|---------------|
+| Add to group | `LDAP_MODIFY_BATCH_ADD` — user's DN is added to the group's `member` attribute |
+| Remove from group | `LDAP_MODIFY_BATCH_REMOVE` — user's DN is removed from the group's `member` attribute |
 
 The system compares the desired groups (what you've selected) against the current groups (what the user already has). It only performs the adds and removes that are needed — no unnecessary writes.
 
@@ -88,29 +88,29 @@ The system compares the desired groups (what you've selected) against the curren
 
 Three distinct password controls:
 
-| Option | What It Does | How It's Applied |
+| Option | What It Does | Technical Detail |
 |--------|-------------|-----------------|
-| **Reset Password** | Sets a new password for the user | Applied instantly and securely |
-| **Force change on next login** | User must set a new password at next sign-in | Marks the account to require a new password |
-| **Use default password** | Uses your configured default instead of generating random | Applied automatically |
+| **Reset Password** | Sets a new password for the user | Writes `unicodePwd` attribute (UTF-16LE encoded) via secure LDAP |
+| **Force change on next login** | User must set a new password at next logon | Sets `pwdLastSet = 0` |
+| **Use default password** | Uses system default instead of generating random | Reads from `config_get('default_password')` |
 | **Temporary Password** (custom field) | Lets you set a specific password | Leave blank for auto-generated (12-char random with uppercase, lowercase, digits, special chars) |
 
 ### Password Policy Flags
 
 These three checkboxes are **independent** — they work on the user's password policy without resetting their password:
 
-| Checkbox | What It Does | How It's Applied |
-|----------|-------------|-----------------|
-| **User must change password at next login** | Forces a password change on next sign-in (no reset needed) | Marks the account to require a new password |
-| **User cannot change password** | Prevents the user from changing their own password | Applies the matching account flag |
-| **Password never expires** | Bypass domain password expiry policy | Applies the matching account flag |
+| Checkbox | What It Does | AD Mechanism |
+|----------|-------------|-------------|
+| **User must change password at next login** | Forces a password change on next logon (no reset needed) | Sets `pwdLastSet = 0` |
+| **User cannot change password** | Prevents the user from changing their own password | Sets `userAccountControl` bit 64 (`PASSWD_CANT_CHANGE`) |
+| **Password never expires** | Bypass domain password expiry policy | Sets `userAccountControl` bit 65536 (`DONT_EXPIRE_PASSWD`) |
 
 The form **pre-checks** these boxes based on the user's current AD state. If the user already has "Password never expires" enabled, the box is checked when the form opens. You can see the current state at a glance.
 
 > **When to use each:**
 > - **Must change**: First-time logins, password policy compliance, security resets
 > - **Cannot change**: Kiosk accounts, shared mailboxes, application service accounts
-> - **Never expires**: Service accounts, automation accounts, long-term system accounts
+> - **Never expires**: Service accounts, automated process accounts, long-term system accounts
 
 ---
 
@@ -177,7 +177,7 @@ Process:
   3. Check ☑ User cannot change password
   4. [Update User]
 
-Result: Both account flags are set. Account stays active indefinitely.
+Result: Two UAC flags set. Account stays active indefinitely.
 Only domain admins can change the password. Service runs uninterrupted.
 ```
 
@@ -192,7 +192,7 @@ Process:
   2. Check ☑ User must change password at next login
   3. [Update User]
   
-Result: A new password is required at first sign-in.
+Result: pwdLastSet = 0. First login forces password creation.
 ```
 
 ### Bulk Access Revocation
@@ -221,12 +221,12 @@ You click [Update User]
   ┌──────────────────────────────────────────────┐
   │  1. Display Name changed? → Update it        │
   │  2. Description changed? → Update it          │
-  │  3. Username changed? → Update logon name    │
-  │  4. OU changed? → Move user to new OU        │
-  │  5. Domain logon name updated? → Refreshed   │
-  │  6. Password reset? → Apply new password     │
+  │  3. Username changed? → Update sAMAccountName │
+  │  4. OU changed? → Move user (ldap_rename)    │
+  │  5. UPN updated? → Auto-syncs to new username │
+  │  6. Password reset? → Set unicodePwd         │
   │  7. Groups changed? → Add/Remove memberships  │
-  │  8. Policy flags? → Apply account settings   │
+  │  8. Policy flags? → Set UAC bits / pwdLastSet │
   └──────────────────────────────────────────────┘
         │
         ▼
@@ -274,7 +274,7 @@ One form. Every attribute that matters. Instant execution.
 
 Username, display name, description, OU migration, group membership sync, password reset, and password policy flags — all in a single interface that pre-fills from the user's current state.
 
-No ADUC. No command lines. No context-switching between different tools for different changes.
+No ADUC. No PowerShell. No context-switching between different tools for different changes.
 
 ---
 

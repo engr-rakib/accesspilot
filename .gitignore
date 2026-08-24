@@ -1,0 +1,128 @@
+# =============================================================================
+# AccessPilot — .gitignore
+# Ei file ta configure kore — git tracking theke kon kon file/folder
+# baad thakbe. Sensitive data, local config, build artifacts baad rakha
+# important. Niche bole dewa ache ki keno ignore korte hobe.
+# =============================================================================
+
+# ===========================================================
+# 1. ENVIRONMENT CONFIG
+# ===========================================================
+# Docker environment variables (server-specific ports, timezone etc)
+# Ei file different on every server — commit korle conflict hobe.
+/.env
+/docker/.env
+
+# ===========================================================
+# 2. SECURE VAULT (SENSITIVE DATA)
+# ===========================================================
+# Contains: LDAP bind passwords, SSL certs, user vault files,
+# org configs, domain configs, notification state.
+# Ei data kothao commit KORBEN NA — extreme security risk.
+/data/secure/
+
+# ===========================================================
+# 3. LOGS (SENSITIVE DATA)
+# ===========================================================
+# Contains: LDAP operation logs, audit trails, PHP errors,
+# Nginx access/error logs — may contain usernames, IPs,
+# timestamps, operation details.
+# Log files every server e different; commit korar kono dorkar nai.
+/data/logs/
+/logs/
+
+# ===========================================================
+# 4. APP DATA (RUNTIME STATE)
+# ===========================================================
+# Session files, setup_complete.lock, store JSON files.
+# Runtime state — commit korle deploy break korbe.
+# internal_admin.json keep kora jete pare (dorkar hole exclude).
+/App_Data/
+/App_Data/*.json
+!/App_Data/internal_admin.json
+
+# ===========================================================
+# 5. AI / AGENT WORKING FILES
+# ===========================================================
+# AI agent session cache, conversation state, working logs.
+# Ei file locally generated — repo te rakhar dorkar nai.
+.opencode/
+
+# ===========================================================
+# 6. SECRET KEYS / CERTIFICATES
+# ===========================================================
+# Private keys, certificates, encryption keys.
+# SSL certs /data/secure/ssl/ te ache (already ignored above).
+# License vault keys (if any).
+*.key
+*.pem
+*.crt
+*.csr
+
+# ===========================================================
+# 7. BUILD ARTIFACTS / VENDOR
+# ===========================================================
+# Composer dependencies — `composer install` die generate hoy.
+# Repo te rakhar dorkar nai; deployment e generate kora better.
+/vendor/
+
+# NPM/node artifacts (if frontend build used)
+/node_modules/
+
+# ===========================================================
+# 8. OS / IDE METADATA
+# ===========================================================
+# OS generated files — repo te rakha useless.
+.DS_Store
+Thumbs.db
+
+# IDE configs — personal preferences.
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ===========================================================
+# 9. BACKUP / ARCHIVE FILES
+# ===========================================================
+# tar.gz backup files should never be in repo.
+*.tar.gz
+*.zip
+*.bak
+
+# ===========================================================
+# 10. DEPRECATED / OLD SCRIPTS
+# ===========================================================
+# install.sh is deprecated and should not be tracked as active.
+# Old backup scripts replaced by new version.
+docker/deploy/install.sh
+docker/deploy/back.sh
+docker/deploy/restore.sh
+
+# ===========================================================
+# 11. RUNTIME TEMP FILES
+# ===========================================================
+# Temp directories that may exist in project root.
+/tmp/
+/php_logs/
+
+# ===========================================================
+# 11.5 FILE SYNC ARTIFACTS
+# ===========================================================
+# Synkron file sync tool database — dev machine specific.
+.synkron*
+
+# ===========================================================
+# 11.6 WINDOWS-SPECIFIC SCRIPTS (IIS DEPLOY ONLY)
+# ===========================================================
+# Windows IIS setup — Linux Docker e relevant na.
+_run_elevated.ps1
+
+# ===========================================================
+# 12. OS-LEVEL SECRETS (HOST-SPECIFIC)
+# ===========================================================
+# License admin vault (host-specific PS keys)
+/scripts/license_admin_templates/vendor_vault/
+# dist release license JSON
+/dist_release_lic/

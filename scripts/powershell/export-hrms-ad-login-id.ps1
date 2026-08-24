@@ -52,7 +52,7 @@ $searcher = $null
 try {
     Add-Type -AssemblyName System.DirectoryServices -ErrorAction Stop
     $searcher = New-Object DirectoryServices.DirectorySearcher
-    $searcher.SearchRoot = New-Object DirectoryServices.DirectoryEntry("LDAP://example.com")
+    $searcher.SearchRoot = New-Object DirectoryServices.DirectoryEntry("LDAP://wgbd.com")
     $searcher.PropertiesToLoad.AddRange(@("samAccountName", "displayName"))
     $searcher.PageSize = 1000
 } catch {}

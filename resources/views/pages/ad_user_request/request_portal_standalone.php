@@ -35,7 +35,7 @@ $securityMessages = array_slice($securityMessages, 0, 8);
 
 $portalDomains = function_exists('ldap_get_domains') ? ldap_get_domains() : [];
 if (empty($portalDomains)) {
-    $portalDomains = [['key' => 'example', 'label' => 'example.com'], ['key' => 'example', 'label' => 'example.com']];
+    $portalDomains = [['key' => 'wgbd', 'label' => 'wgbd.com'], ['key' => 'whildc', 'label' => 'whildc.com']];
 }
 $portalDomainExchange = [];
 foreach ($portalDomains as $d) {
@@ -406,7 +406,7 @@ foreach ($portalDomains as $d) {
                                     </select>
                                 </div>
                                 <div class="col-md-3" id="domain_wrap"><label class="form-label">Domain</label><select class="form-select" id="domain_select" name="domain_select"><?php foreach ($portalDomains as $d): $dk = $d['key'] ?? ''; if ($dk === '') continue; $dl = $d['label'] ?? ($dk . '.com'); $de = !empty($d['exchange']['enabled']); ?><option value="<?= htmlspecialchars($dk) ?>" data-exchange="<?= $de ? '1' : '0' ?>"><?= htmlspecialchars($dl) ?></option><?php endforeach; ?></select></div>
-                                <div class="col-md-5" id="target_username_wrap"><label class="form-label">Account ID</label><div class="input-group"><span class="input-group-text" id="domainPrefix"><?= htmlspecialchars(($portalDomains[0]['key'] ?? 'example') . '\\') ?></span><input type="text" class="form-control" id="target_username" name="target_username" placeholder="e.g. 66684"></div></div>
+                                <div class="col-md-5" id="target_username_wrap"><label class="form-label">Account ID</label><div class="input-group"><span class="input-group-text" id="domainPrefix"><?= htmlspecialchars(($portalDomains[0]['key'] ?? 'wgbd') . '\\') ?></span><input type="text" class="form-control" id="target_username" name="target_username" placeholder="e.g. 66684"></div></div>
                             </div>
                             <div class="row g-2 mb-2">
                                 <div class="col-sm-6" id="hrms_id_wrap" style="display:none;"><label class="form-label">HRMS ID</label><input type="text" class="form-control" id="hrms_id" name="hrms_id"></div>

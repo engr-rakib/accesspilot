@@ -309,7 +309,7 @@ docker exec accesspilot_php crontab -l
 ### DNS Test From Container
 
 ```bash
-docker exec accesspilot_php nslookup dc01.example.local
+docker exec accesspilot_php nslookup dc01.whildc.com
 ```
 
 | | |

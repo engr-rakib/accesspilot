@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "docs": [
+    {
+      "path": "INDEX.md",
+      "title": "Document Index",
+      "audience": ["developer", "internal"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["meta", "index", "reading-order"]
+    },
+    {
+      "path": "client/guides/API_DOCUMENTATION.md",
+      "title": "HRMS API Integration Guide",
+      "audience": ["client_admin", "client_it"],
+      "export": true,
+      "in_app_help": true,
+      "tags": ["api", "hrms", "integration", "setup"]
+    },
+    {
+      "path": "Technical/AD/user handeling/ou&groups/AD_OBJECTS_CONFIG.md",
+      "title": "Intelligent OU & Group Management",
+      "audience": ["developer", "internal"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["ou", "group", "ad", "configuration"]
+    },
+    {
+      "path": "client/guides/AD_CONFIGURATION_GUIDE.md",
+      "title": "AD Configuration Guide",
+      "audience": ["client_admin", "client_it"],
+      "export": true,
+      "in_app_help": true,
+      "tags": ["ou", "group", "user-properties", "configuration", "guide"]
+    },
+    {
+      "path": "Technical/AD/user handeling/INTELLIGENT_USER_CREATION.md",
+      "title": "Intelligent User Creation from HRMS",
+      "audience": ["developer", "internal"],
+      "export": false,
+      "in_app_help": true,
+      "tags": ["user-creation", "hrms", "ad", "feature-spec"]
+    },
+    {
+      "path": "internal/license/LICENSE_A-Z.md",
+      "title": "License A-Z Reference",
+      "audience": ["vendor", "devops"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["license", "vendor"]
+    },
+    {
+      "path": "internal/license/LICENSE_ARCHITECTURE.md",
+      "title": "License Architecture",
+      "audience": ["vendor", "developer"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["license", "architecture", "vendor"]
+    },
+    {
+      "path": "internal/license/DEPLOYMENT_ORDER.md",
+      "title": "Deployment Order & Requirements",
+      "audience": ["vendor", "devops"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["deployment", "infrastructure"]
+    },
+    {
+      "path": "internal/application/security/VENDOR_SECURITY_AND_DEPLOYMENT.md",
+      "title": "Vendor Security & Deployment Guide",
+      "audience": ["vendor", "security"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["security", "deployment", "vendor"]
+    },
+    {
+      "path": "internal/DOCUMENT_MANAGEMENT_SPEC.md",
+      "title": "Document Management System",
+      "audience": ["vendor", "developer"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["meta", "documentation", "specification"]
+    },
+    {
+      "path": "internal/application/external-storage-mapping.md",
+      "title": "External Storage Architecture",
+      "audience": ["developer", "internal"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["storage", "vault", "logs", "docker", "iis", "architecture"]
+    },
+    {
+      "path": "Technical/server/SERVER_HARDENING_GUIDE.md",
+      "title": "Server Hardening Guide",
+      "audience": ["vendor", "devops", "security"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["security", "hardening", "docker", "ldap", "firewall", "nginx", "php"]
+    },
+    {
+      "path": "Technical/server/PORT_MAPPING_HTTPS_GUIDE.md",
+      "title": "Port Mapping & HTTPS Guide",
+      "audience": ["vendor", "devops", "client_admin"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["port-mapping", "https", "ssl", "nginx", "reverse-proxy"]
+    },
+    {
+      "path": "Technical/server/MIGRATION_GUIDE.md",
+      "title": "Full Server Migration Guide",
+      "audience": ["vendor", "devops"],
+      "export": false,
+      "in_app_help": false,
+      "tags": ["migration", "docker", "backup", "restore", "server-transfer"]
+    }
+  ]
+}

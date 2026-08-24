@@ -105,7 +105,13 @@ return [
         'icon' => 'fa-certificate',
         'permission' => ''
     ],
-    
+    [
+        'name' => 'Vendor License',
+        'url' => '/index.php?page=vendor_console',
+        'icon' => 'fa-handshake',
+        'permission' => 'page_vendor_console'
+    ],
+
      [
         'name' => 'Profile',
         'url' => '/index.php?page=profile',

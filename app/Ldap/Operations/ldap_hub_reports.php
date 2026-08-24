@@ -206,7 +206,7 @@ if (!function_exists('ldap_hub_check_hrms_status')) {
             $totalErrors = 0;
             $totalProcessed = 0;
 
-            $hrmsApiBase = 'https://hrms.example.com/info/emp_info.php';
+            $hrmsApiBase = 'https://whrmsapi.waltonbd.com/info/emp_info.php';
 
             foreach ($empIds as $empID) {
                 $totalProcessed++;
@@ -667,7 +667,7 @@ if (!function_exists('ldap_hub_hrms_ad_report')) {
         $empIds = array_filter(array_map('trim', preg_split('/[\s,;]+/', $rawIds)));
         $isSingleUser = count($empIds) === 1;
 
-        $hrmsApiBase = 'https://hrms.example.com/info/emp_info.php';
+        $hrmsApiBase = 'https://whrmsapi.waltonbd.com/info/emp_info.php';
 
         $callHrmsApi = function($id) use ($hrmsApiBase) {
             $apiUrl = $hrmsApiBase . '?emp_id=' . urlencode($id);

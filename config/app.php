@@ -1,10 +1,10 @@
 <?php return array (
-  'default_password' => 'CHANGE_ME_DEFAULT_PASSWORD',
+  'default_password' => 'Welcome123!',
   'pwd_reset_use_random' => false,
-  'encryption_key' => 'CHANGE_ME_64_HEX_ENC_KEY',
-  'domain_name' => 'example.local',
-  'org_name' => 'ExampleOrg',
-  'base_dn' => 'DC=example, DC=local',
+  'encryption_key' => 'b7e6d48e9c10a3b5f2d8c4a7e8b9f0d1c3a5b7e8d9f0a1b2c3d4e5f6a7b8c9d0',
+  'domain_name' => 'wgbd.com',
+  'org_name' => 'Walton',
+  'base_dn' => 'DC=whildc, DC=com',
   'titles' => 
   array (
     'main_page' => 'Portal',
@@ -26,19 +26,22 @@
   array (
     'name' => 'AccessPilot',
     'version' => '7.43',
+    'update_date' => 'aug 23, 2026',
     'logo_path' => '/assets/images/logo_icon.png',
     'login_logo_path' => '/assets/images/logo_icon.png',
     'favicon_path' => '/assets/images/logo_icon.png',
-    'og_title' => 'AccessPilot - Identity Management Portal',
-    'og_description' => 'A comprehensive AD, Exchange and access control portal.',
-    'og_image' => '/assets/images/logo_icon.png',
+    'og_title' => 'AccessPilot - User Management System',
+    'og_description' => 'A comprehensive AD management and access control portal.',
+    'og_image' => '/assets/images/llogo_icon.png',
   ),
   'footer' => 
   array (
     'copyright_year' => '2026',
-    'developer_name' => 'AccessPilot Engineering',
-    'developer_role' => 'Product Engineering',
+    'developer_name' => 'Rakibuzzaman',
+    'developer_role' => 'Lead Developer & System Architect',
+    'developer_responsibility' => 'Responsible for core development, system design, and integration.',
+    'developer_url' => '#',
     'copyright_message' => 'All Rights Reserved.',
   ),
-  'deployment_id' => 'CHANGE_ME_DEPLOYMENT_ID',
+  'deployment_id' => '40fabf5491b9c596542a7bd1ccfe9b46:0a844ad32f2bb6b876434815271d95e9',
 );

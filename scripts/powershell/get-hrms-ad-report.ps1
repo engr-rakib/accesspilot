@@ -12,7 +12,7 @@ $totalFound = 0; $totalAdOnly = 0; $totalHrmsOnly = 0; $totalNotFound = 0; $tota
 
 try {
     $idList = @($Usernames -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })
-    $hrmsApiBase = 'https://hrms.example.com/info/emp_info.php'
+    $hrmsApiBase = 'https://whrmsapi.waltonbd.com/info/emp_info.php'
 
     foreach ($input in $idList) {
         $row = [PSCustomObject]@{

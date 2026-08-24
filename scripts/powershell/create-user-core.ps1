@@ -334,7 +334,7 @@ Function Create-ADUser {
     param ([string]$EmpID)
 
     # Fetch employee details from API
-    $APIUrl = "https://hrms.example.com/info/emp_info.php?emp_id=$EmpID"
+    $APIUrl = "https://whrmsapi.waltonbd.com/info/emp_info.php?emp_id=$EmpID"
     try {
         $EmpData = Invoke-RestMethod -Uri $APIUrl -Method Get
     } catch {

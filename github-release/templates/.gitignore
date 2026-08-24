@@ -1,0 +1,26 @@
+# AccessPilot — public repo ignores
+# Secrets & runtime (NEVER commit)
+.env
+*.env
+.env.*
+!/env
+App_Data/
+data/
+logs/
+dist_release_lic/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build artifacts / archives (installer pulls these from GitHub Releases)
+release-assets/
+*.tar.gz
+*.zip
+
+# Local config scratch
+.vscode/
+.idea/

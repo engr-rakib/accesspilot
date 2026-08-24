@@ -833,11 +833,11 @@ if ($docFile) {
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-4">
                                             <label class="form-label sys-field-label" for="domainFormKeyInput"><span>Domain Key <span class="text-danger">*</span></span><span class="sys-field-state">REQ</span></label>
-                                            <input type="text" class="form-control font-mono" id="domainFormKeyInput" placeholder="e.g., example" autocomplete="off" required>
+                                            <input type="text" class="form-control font-mono" id="domainFormKeyInput" placeholder="e.g., wgbd" autocomplete="off" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label sys-field-label" for="domainFormLabel"><span>Domain Label</span><span class="sys-field-state optional">OPTIONAL</span></label>
-                                            <input type="text" class="form-control" id="domainFormLabel" placeholder="e.g., ExampleOrg">
+                                            <input type="text" class="form-control" id="domainFormLabel" placeholder="e.g., Walton Group">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label sys-field-label" for="domainFormHost"><span>LDAP Host <span class="text-danger">*</span></span><span id="domainHostStatus" class="sys-field-state">REQ</span></label>

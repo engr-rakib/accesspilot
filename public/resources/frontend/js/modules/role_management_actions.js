@@ -337,6 +337,7 @@ window.initRoleForm = function(config) {
             'page_application_events',
             'page_monitoring',
             'page_system_config',
+            'page_vendor_console',
             'page_email_tools',
             'page_exchange',
             'page_license',

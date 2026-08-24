@@ -56,7 +56,7 @@ $adContext = $null
 try {
     Add-Type -AssemblyName System.DirectoryServices.AccountManagement -ErrorAction Stop
     $adContext = New-Object DirectoryServices.AccountManagement.PrincipalContext(
-        [DirectoryServices.AccountManagement.ContextType]::Domain, 'example.com'
+        [DirectoryServices.AccountManagement.ContextType]::Domain, 'wgbd.com'
     )
 } catch {}
 
@@ -64,7 +64,7 @@ try {
 foreach ($empID in $allUsers) {
     $totalProcessed++
     try {
-        $apiURL = "https://hrms.example.com/info/emp_info.php?emp_id=$empID"
+        $apiURL = "https://whrmsapi.waltonbd.com/info/emp_info.php?emp_id=$empID"
         $currentResult = [PSCustomObject]@{ EMP_ID=$empID; EMP_NAME="N/A"; HRMS_STATUS="N/A"; AD_STATUS="N/A"; CheckedBy=$ExecutedBy }
         $empSamForAD = $empID
         $adStatus = "N/A"

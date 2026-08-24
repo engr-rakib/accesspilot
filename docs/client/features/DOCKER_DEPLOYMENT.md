@@ -30,11 +30,12 @@ Your AD management platform runs 24/7 without interruption. Updates deploy in se
 │  One server. Two containers. Full enterprise platform.     │
 │                                                             │
 │  ┌──────────────────────┐  ┌──────────────────────────┐   │
-│  │   Web Gateway        │  │   Application Core        │   │
+│  │   Nginx (web)        │  │   PHP-FPM (application)   │   │
 │  │   ───────────────    │  │   ────────────────────    │   │
-│  │   • Static files     │  │   • AD user management    │   │
+│  │   • Static files     │  │   • LDAP operations       │   │
+│  │   • Reverse proxy    │  │   • PowerShell WinRM      │   │
+│  │   • SSL termination  │  │   • AD user management    │   │
 │  │   • Security rules   │  │   • Exchange management   │   │
-│  │   • SSL termination  │  │   • Quick Actions         │   │
 │  └──────────┬───────────┘  └──────────┬───────────────┘   │
 │             │                          │                   │
 │             └──────────┬───────────────┘                   │
@@ -52,15 +53,15 @@ Your AD management platform runs 24/7 without interruption. Updates deploy in se
 
 ### Instant Recovery
 
-If the application process itself crashes, Docker restarts it in under 1 second. No manual intervention, no page reload needed. Your helpdesk keeps working.
+If the PHP process crashes, Docker restarts it in under 1 second. No manual intervention, no page reload needed. Your helpdesk keeps working.
 
 ### Zero-Downtime Updates
 
-Code changes apply by simply restarting the application container — takes 2-3 seconds. Users don't even notice. No maintenance windows required.
+Code changes apply by simply restarting the PHP container — takes 2-3 seconds. Users don't even notice. No maintenance windows required.
 
 ### Data That Survives Everything
 
-Your vault (users, credentials, license) and audit logs live on the host filesystem — not inside containers. Even a full container teardown (the nuclear option) can't touch them. Data survives:
+Your vault (users, credentials, license) and audit logs live on the host filesystem — not inside containers. Even `docker compose down -v` (the nuclear option) can't touch them. Data survives:
 
 - Container restarts ✅
 - Server reboot ✅
@@ -69,22 +70,22 @@ Your vault (users, credentials, license) and audit logs live on the host filesys
 
 ### One File Defines Everything
 
-The entire infrastructure is in one compose file — about 80 lines. Want to change memory settings? Update a setting and restart. Need to add a monitoring service? Add a few lines to the file.
+The entire infrastructure is in `docker-compose.yml` — ~80 lines. Want to change PHP memory? Update a config file and restart. Need to add a monitoring container? Add 5 lines to the YAML.
 
 ### Security Built-In
 
 - **Read-only container filesystems** — no malware can write to the container
-- **All Linux capabilities dropped** — only the bare minimum is added back
+- **All Linux capabilities dropped** — only NET_BIND_SERVICE + NET_RAW added back
 - **No-new-privileges** — child processes can't escalate
-- **Application hardening** — extra layers of file and session security
-- **Security rules** — blocks known attack paths and hidden-file access
+- **PHP hardening** — `disable_functions`, `open_basedir`, session security
+- **Nginx security rules** — blocks wp-admin, phpmyadmin, dot-files, env access
 
-### Secure Connections, Automatically
+### Enterprise Authentication Chain
 
 ```
-AccessPilot → Your Active Directory (sign-on)
-           → Your Exchange servers (mail operations)
-           → A secure, ticket-based channel
+AccessPilot → LDAP (AD authentication)
+           → PowerShell WinRM (Exchange operations)
+           → Kerberos (secure ticket-based auth)
 ```
 
 All from inside a single Docker container. No Windows server needed.
@@ -98,9 +99,9 @@ All from inside a single Docker container. No Windows server needed.
 | **High Availability** | Auto-restart, health checks, systemd service |
 | **Data Safety** | Bind mounts on host RAID-1 — survive any docker operation |
 | **Quick Updates** | Upload code via WinCP → run cleanup → restart container — done in 10 seconds |
-| **Backup & Restore** | One-command backup of vault + logs + settings. Rollback in 2 minutes. |
+| **Backup & Restore** | One-command backup of vault + logs + config. Rollback in 2 minutes. |
 | **Monitoring** | Container health, PHP errors, audit logs, disk usage — all visible |
-| **Scalability** | Scale the application horizontally with a single command — no settings changes needed |
+| **Scalability** | Scale PHP horizontally with `--scale php=3` — no config changes needed |
 
 ---
 

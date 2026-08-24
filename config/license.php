@@ -1,25 +1,28 @@
 <?php
 
-$secureBasePath = getenv('ACCESSPILOT_SECURE_BASE_PATH') ?: 'VAR_SECURE_BASE_PATH';
+$secureBasePath = getenv('ACCESSPILOT_SECURE_BASE_PATH') ?: 'C:/inetpub/Desk_secure_files';
 $secureBasePath = rtrim($secureBasePath, '/\\');
 $statePath = $secureBasePath . '/license_state.json';
 
 return [
     'license' => [
         'state_path' => $statePath,
+        // Vendor generates these PEM files for client deployments (Vendor Console tracking).
         'vendor_issued_dir' => $secureBasePath . '/vendor_issued_licenses',
+        // This deployment's own active license (applied via License page).
         'deployment_active_dir' => $secureBasePath . '/deployment_active_license',
         'deployment_active_filename' => 'active_license.pem',
+        // Vendor RSA signing keys uploaded from Vendor Console (fallback to scripts/vault).
         'vendor_signing_keys_dir' => $secureBasePath . '/vendor_signing_keys',
         'warning_days' => 90,
         'allow_secure_expiry_without_certificate' => false,
         'public_key_path' => __DIR__ . '/license_public.pem',
         'page_slug' => 'license',
         'contact' => [
-            'company' => 'CHANGE_ME_LICENSE_CONTACT_ORG',
-            'email' => 'CHANGE_ME_LICENSE_SUPPORT_EMAIL',
-            'phone' => 'CHANGE_ME_LICENSE_SUPPORT_PHONE',
-            'website' => 'CHANGE_ME_LICENSE_SUPPORT_URL',
+            'company' => 'RKBZIX',
+            'email' => 'rakibcse47@gmail.com',
+            'phone' => '+880-1955-653548',
+            'website' => 'https://accesspilot.local',
             'sales_name' => 'AccessPilot Licensing Desk',
         ],
         'policy' => [

@@ -1,54 +1,55 @@
 # Performance Features — User Benefits
 
-> Document ta user/deployment team er jonno. Ki improvement korlam, user ki ki benefit pabe, real life workflow kivabe change holo — shegula eikhane likha ache.
+> Document ta user/deployment team er jonno. Ki feature enable korlam, user ki ki benefit pabe, real life workflow kivabe change holo — shegula eikhane likha ache.
 
 ---
 
-## Ki Ki Improvement Korlam
+## Ki Ki Feature Enable Korlam
 
-### 1. Smoother Page Loading
+### 1. Gzip Compression
 **Ki:** File transfer er somoy data compress kore pathay.
 
 | Resource | Age (Before) | Ekhon (After) |
 |----------|-------------|----------------|
-| Page styles (components.css) | 112 KB | 20 KB |
-| Interactive files (total) | ~150 KB | ~35 KB |
-| Live data on a page | 100% | ~30% |
+| CSS file (components.css) | 112 KB | 20 KB |
+| JS files (total) | ~150 KB | ~35 KB |
+| JSON response | 100% | ~30% |
 | **Per page load** | **~300 KB** | **~70 KB** |
 
 **Benefit:** User er internet slow holeo page fast load hobe. Office er WAN connection e noticeable improvement pabe.
 
 ---
 
-### 2. Instant Monitoring Refreshes
-**Ki:** Monitoring dashboard er same data bar bar new kore generate na kore — instantly serve kore dey.
+### 2. FastCGI Cache
+**Ki:** Monitoring API te same data bar bar PHP te na giye Nginx direct serve kore.
 
 | Scenario | Before | After |
 |----------|--------|-------|
-| Monitoring polling (10s interval) | Prottebar server mount korte hoto | Reply instant — no repeat work |
-| Same page e 10 user open kore | 10 ta separate server task | 1 ta task + 9 ta instant reply |
+| Monitoring polling (10s interval) | Protibar PHP-FPM hit korto | 5s porjonto Nginx cache serve kore |
+| Same page e 10 user open kore | 10 ta separate PHP request | 1 ta PHP request + 9 ta cache hit |
 | Response time | ~200-500ms | ~1-5ms |
 
-**Benefit:** Server er load kombe. Monitoring page instant load hobe — 10, 20 ba 100 jon user thakleo.
+**Benefit:** PHP-FPM er load kombe. Server er CPU usage kombe. Monitoring page instant load hobe.
 
 ---
 
-### 3. Instant Profile Pictures
-**Ki:** Profile picture serve er jonno heavy work ar bar bar hoy na — image directly pathano hoy.
+### 3. X-Accel-Redirect (Avatars)
+**Ki:** Profile picture serve er jonno PHP ar file read kore na — Nginx direct serve kore.
 
 | Scenario | Before | After |
 |----------|--------|-------|
-| Page e 50 jon user er avatar load | Prottek ta e slow separate task | 1 ta task + 49 ta direct fast reply |
+| Page e 50 jon user er avatar load | 50 ta PHP process block | 1 ta PHP + 49 ta Nginx direct |
+| PHP memory usage per avatar | ~1 MB | ~0.1 MB |
 | Avatar response time | 200-500ms | <10ms |
 
-**Benefit:** Employee DB te user list scroll korle — avatar gulo instant load hobe. Server free thakbe onno kaj e.
+**Benefit:** Employee DB te user list scroll korle — avatar gulo instant load hobe. PHP worker free thakbe onno request handle korar jonno.
 
 ---
 
-### 4. Reliable Auto-Refreshes
-**Ki:** Monitoring page er periodic auto-refresh fully optimized — kono server load na bare.
+### 4. Cache Key Normalization
+**Ki:** Monitoring JS `_=timestamp` pathay cache break korar jonno. Ekhon Nginx oi param ignore kore cache key banay.
 
-**Benefit:** Monitoring views (prottek 10s) fast respond kore. Actually performance ta kaj kore.
+**Benefit:** Monitoring GET requests (prottek 10s) properly cached hoy. Actually cache ta kaj kore.
 
 ---
 
@@ -56,65 +57,117 @@
 
 ### Before Optimization
 ```
-Your browser                      Portal                     Your servers
-  │                                │                             │
-  ├── login page ────────────────► │ ──── process ───────────►  │
-  │◄── page (300 KB) ──────────────┤◄─── full page (500ms) ─────┤
-  │                                │                             │
-  ├── monitoring dashboard ────────►│ ──── process ───────────►  │ ──── look up ──► AD/HRMS
-  │◄── data (500ms) ───────────────┤◄─── data (500ms) ──────────┤◄─── result ────│
-  │                                │                             │
-  ├── (every 10s) refresh ─────────►│ ──── process ───────────►  │ ──── look up ──► AD/HRMS
-  │◄── data (500ms) ───────────────┤◄─── data ──────────────────┤◄─── result ────│
-  │                                │                             │
-  ├── employee list (50 avatars) ──►│ ──── process ───────────►  │ heavy work x50
-  │◄── avatars (slow) ─────────────┤◄─── buffered ──────────────┤ (large each)
-  │                                │                             │
+Browser                         Nginx                    PHP-FPM                 LDAP/AD
+  │                               │                         │                      │
+  ├── login page ───────────────► │ ──── PHP proxy ──────► │                      │
+  │◄── HTML (300KB unc) ─────────┤◄─── HTML ───────────────┤                      │
+  │                               │                         │                      │
+  ├── monitoring dashboard ──────►│ ──── PHP proxy ──────► │ ──── LDAP query ────►│
+  │◄── JSON ──────────────────────┤◄─── JSON (500ms) ──────┤◄─── response ────────┤
+  │                               │                         │                      │
+  ├── (every 10s) poll status ───►│ ──── PHP proxy ──────► │ ──── LDAP query ────►│
+  │◄── JSON (500ms) ──────────────┤◄─── JSON ──────────────┤◄─── response ────────┤
+  │                               │                         │                      │
+  ├── employee list (50 avatars)─►│ ──── PHP proxy ──────► │ readfile() x50       │
+  │◄── avatars (slow) ────────────┤◄─── PHP buffer ────────┤ (1MB mem each)       │
+  │                               │                         │                      │
 ```
 
 ### After Optimization
 ```
-Your browser                      Portal                     Your servers
-  │                                │                             │
-  ├── login page ────────────────► │ ──── process ───────────►  │
-  │◄── page (much smaller) ────────┤◄─── page (70 KB) ──────────┤
-  │                                │                             │
-  ├── monitoring dashboard ────────►│ ──── [INSTANT REPLY] ────► │
-  │◄── data (fast) ────────────────┤   (no repeat work)         │
-  │                                │                             │
-  ├── (every 10s) refresh ─────────►│ ──── [INSTANT REPLY] ────► │
-  │◄── data (fast) ────────────────┤   (recent, from memory)    │
-  │                                │                             │
-  ├── employee list (50 avatars) ──►│ ──── serve fast ─────────► │
-  │◄── avatars (instant) ───────────┤◄── served directly ────────┤ (10ms, no heavy work)
-  │                                │                             │
+Browser                         Nginx                    PHP-FPM                 LDAP/AD
+  │                               │                         │                      │
+  ├── login page ───────────────► │ ──── PHP proxy ──────► │                      │
+  │◄── HTML (70KB gzip) ──────────┤◄─── HTML ───────────────┤                      │
+  │                               │                         │                      │
+  ├── monitoring dashboard ──────►│ ──── [CACHE HIT] ────► │                      │
+  │◄── JSON (gzip, <5ms) ─────────┤   (no PHP hit)          │                      │
+  │                               │                         │                      │
+  ├── (every 10s) poll status ───►│ ──── [CACHE HIT] ────► │                      │
+  │◄── JSON (gzip, <5ms) ─────────┤   (5s TTL, from tmpfs)  │                      │
+  │                               │                         │                      │
+  ├── employee list (50 avatars)─►│ ──── PHP ────────────► │ X-Accel header       │
+  │◄── avatars (fast) ────────────┤◄── Nginx ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯┤ (10ms, no readfile) │
+  │                               │   serves from disk      │                      │
 ```
 
 ---
 
-## Flowchart (Simplified)
+## Flowchart (Technical)
 
 ```
-                 ┌────────────────────────┐
-                 │   Your request arrives  │
-                 └───────────┬────────────┘
-                             │
-                  ┌──────────▼───────────┐
-                  │  First time?         │──No──►  ┌───────────────┐
-                  └──────────┬───────────┘         │  Instant      │
-                             │ Yes                 │  reply (fast) │
-                  ┌──────────▼───────────┐         └───────┬───────┘
-                  │  Process once,       │                 │
-                  │  remember result     │◄────────────────┘
-                  └──────────┬───────────┘
-                             │
-                  ┌──────────▼───────────┐
-                  │  Reply to browser    │
-                  └──────────────────────┘
+                        ┌──────────────────────┐
+                        │    Browser Request    │
+                        └──────────┬───────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │   Nginx terminates    │
+                        │   SSL + HTTP/2        │
+                        │   Rate limit check    │
+                        └──────────┬───────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │  Gzip on?             │
+                        │  (if client supports) │
+                        └──────────┬───────────┘
+                                   │
+                    ┌──────────────┼──────────────┐
+                    │              │              │
+            ┌───────▼──────┐ ┌────▼─────┐ ┌──────▼──────┐
+            │ Static asset │ │ API call │ │ PHP page    │
+            │ (/resources) │ │(/api/...)│ │ (login/etc) │
+            │ expires 7d   │ │          │ │             │
+            │ gzip ✓       │ │  ┌───────▼────────┐      │
+            └──────────────┘ │  │ FastCGI Cache   │      │
+                             │  │ Check?          │      │
+                             │  │                 │      │
+                             │  │ key = URL minus  │      │
+                             │  │  _=timestamp    │      │
+                             │  └───┬───────┬─────┘      │
+                             │  HIT │       │ MISS       │
+                             │ ┌────▼──┐  ┌──▼──────┐   │
+                             │ │Serve  │  │PHP-FPM  │   │
+                             │ │from   │  │process  │   │
+                             │ │cache  │  │request  │   │
+                             │ │+ gzip │  │+ gzip   │   │
+                             │ └───────┘  └──┬───────┘   │
+                             │              │            │
+                             │        ┌─────▼─────┐      │
+                             │        │Store cache│      │
+                             │        │(5s TTL)   │      │
+                             │        └───────────┘      │
+                             └───────────────────────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │   Response to        │
+                        │   Browser            │
+                        │   (gzip compressed)  │
+                        └──────────────────────┘
 
-    Avatar flow:  Browser → Portal (checks access) → serves picture directly
-                  First view: small check then fast serve
-                  Later views: instant, no repeat work
+    Avatar Flow (X-Accel-Redirect):
+    
+    Browser → Nginx → PHP (auth check)
+                           │
+                    header("X-Accel-Redirect:
+                        /_xaccel/avatar/xyz.jpg")
+                           │
+                           ▼
+                    Nginx intercepts
+                           │
+                    ┌──────▼──────┐
+                    │ Internal    │
+                    │ location    │
+                    │ /_xaccel/   │
+                    │ avatar/     │
+                    └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │ Serve from  │
+                    │ /data/secure│
+                    │ /profile_img│
+                    │ expires 7d  │
+                    │ gzip ✓      │
+                    └─────────────┘
 ```
 
 ---
@@ -131,23 +184,28 @@ Your browser                      Portal                     Your servers
 ### After (User Experience)
 1. User monitoring dashboard khule → instant load (<1s)
 2. Prottek 10s e auto-refresh → kono loading spinner nei, data instantly update hoy
-3. Employee DB te scroll korle → avatar gula instant show kore
-4. Slow internet eo → compression er jonno 70% kom bandwidth use hoy, page fast load
-5. 10-20 user monitor korleo → server CPU 10-20% e thake (instant replies, no repeat work)
+3. Employee DB te scroll korle → avatar gula instant show kore (cached by nginx)
+4. Slow internet eo → gzip compression er jonno 70% kom bandwidth use hoy, page fast load
+5. 10-20 user monitor korleo → server CPU 10-20% ei thake (cache serve kore, PHP-FPM free)
 
 ---
 
 ## Summary Table
 
-| Improvement | How It Works | User Benefit |
+| Feature | Technical Name | User Benefit |
 |---------|---------------|--------------|
-| Smaller page files | Compression | 3x faster page load, less bandwidth |
-| Instant repeated views | Recent results served instantly | Instant monitoring, 80% less server effort |
-| Fast avatars | Direct serve | Zero-delay profile pictures |
-| Smarter refresh handling | Tracking tokens ignored | Refreshes are actually fast |
+| File compression | Gzip | 3x faster page load, less bandwidth |
+| API caching | FastCGI Cache | Instant monitoring, 80% less PHP CPU |
+| Avatar serving | X-Accel-Redirect | Zero-delay profile pictures |
+| Cache key fix | Map strip `_=` | Caching actually works for monitoring |
 
 ---
 
-## Getting These Improvements
+## Files Involved
 
-These improvements are built into the standard installation — no separate setup needed. If you'd like to verify them on your own servers, see the portal admin guide.
+| File | Kaj |
+|------|-----|
+| `docker/nginx/gzip.conf` | Gzip compression on kore |
+| `docker/nginx/default.conf` | Cache path, cache zone, stripped key, internal avatar location |
+| `docker/docker-compose.yml` | gzip.conf mount + tmpfs for cache |
+| `app/Application/Http/Controllers/get_avatar.php` | readfile remove kore X-Accel-Redirect use kore |

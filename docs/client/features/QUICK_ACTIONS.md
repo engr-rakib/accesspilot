@@ -20,22 +20,22 @@ These four buttons live in the action bar at the top of the workspace. They're a
 ### 🔓 Unlock
 A user enters the wrong password too many times — AD locks them out. One click removes the lock. They log in again immediately.
 
-**What happens:** The system clears the account's locked state. The user can sign in again immediately.
+**What happens:** The system sets `lockoutTime` to 0 on the user's AD object. The account unlocks instantly.
 
 ### 🔁 Reset Password
 A user forgot their password. Or it expired. Or a new hire needs their first password set. One click generates a secure temporary password and forces change on next login.
 
-**What happens:** The system generates a cryptographically random password (or uses your default password policy), applies it securely, and forces the user to change it on their next login.
+**What happens:** The system generates a cryptographically random password (or uses your default password policy), sets it via secure LDAP, and forces the user to change it on their next login.
 
 ### ✅ Enable
 An employee returns from leave. A contractor's project restarts. A disabled account needs to come back. One click re-enables the AD account.
 
-**What happens:** The system clears the account's disabled state. The account is active again.
+**What happens:** The system modifies the `userAccountControl` attribute — clearing the `ACCOUNTDISABLE` (2) flag. The account is active again.
 
 ### ⛔ Disable
 An employee resigns. A contractor finishes their project. A security incident requires immediate account suspension. One click disables the AD account.
 
-**What happens:** The system sets the account's disabled state. Sign-in is blocked immediately.
+**What happens:** The system modifies the `userAccountControl` attribute — setting the `ACCOUNTDISABLE` (2) flag. Login is blocked immediately.
 
 ---
 
@@ -129,7 +129,7 @@ Every action has safeguards:
 | **Training-free** | Any team member can handle any action immediately |
 | **Remote-friendly** | Works from anywhere — no VPN to domain controller needed |
 | **Multi-user capable** | Enter multiple IDs — the action applies to all at once |
-| **Fallback support** | If one channel is unavailable, the portal automatically uses another — you never hit a dead end |
+| **Fallback support** | If LDAP fails, system automatically uses PowerShell backend |
 
 ---
 

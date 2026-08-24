@@ -135,6 +135,7 @@ foreach ($menu_items as $item) {
                     $icon = $item['icon'];
                     
                     if ($item_page === 'license') $icon = 'fa-certificate';
+                    if ($item_page === 'vendor_console') $icon = 'fa-handshake';
                     if ($item_page === 'system_config') $icon = 'fa-sliders-h';
                     if ($item_page === 'identity_access') $icon = 'fa-id-card';
                     if ($item_page === 'documentation' || $item_page === 'documentation_guide') $icon = 'fa-book';

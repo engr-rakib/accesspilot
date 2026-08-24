@@ -13,7 +13,7 @@ function ad_user_request_allowed_domains(): array
         $aliases = [$key, $key . '.com'];
         $map[$key] = $aliases;
     }
-    return $map ?: ['example' => ['example', 'example.com'], 'example' => ['example', 'example.com']];
+    return $map ?: ['wgbd' => ['wgbd', 'wgbd.com'], 'whildc' => ['whildc', 'whildc.com']];
 }
 
 function ad_user_request_normalize_domain(?string $domain): ?string
@@ -56,7 +56,7 @@ function ad_user_request_normalize_target(string $target, ?string $selectedDomai
     if (count($parts) === 2) {
         $typedDomain = ad_user_request_normalize_domain($parts[0]);
         if ($typedDomain === null) {
-            return ['success' => false, 'message' => 'Unsupported domain. Use `example` or `example`.'];
+            return ['success' => false, 'message' => 'Unsupported domain. Use `wgbd` or `whildc`.'];
         }
         $accountId = trim($parts[1]);
         if ($selectedDomainNormalized && $typedDomain !== $selectedDomainNormalized) {
@@ -68,7 +68,7 @@ function ad_user_request_normalize_target(string $target, ?string $selectedDomai
         return ['success' => false, 'message' => 'Target user ID is required for this request.'];
     }
 
-    $finalDomain = $typedDomain ?: ($selectedDomainNormalized ?: 'example');
+    $finalDomain = $typedDomain ?: ($selectedDomainNormalized ?: 'wgbd');
 
     return [
         'success' => true,

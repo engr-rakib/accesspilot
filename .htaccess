@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect trailing slashes
+    RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+    # Allow direct access to existing files and directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Route everything else through the front controller
+    RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+</IfModule>

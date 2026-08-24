@@ -1,0 +1,19 @@
+.opencode/
+.git/
+.gitignore
+AGENTS.md
+node_modules/
+php_logs/
+analysis/
+logs/
+tmp/
+adminer/
+vendor/
+# docker/ excluded so individual files must be allowed explicitly
+# docker/.env
+.env.*
+*.log
+*.md
+.DS_Store
+Thumbs.db
+App_Data/setup_complete.lock

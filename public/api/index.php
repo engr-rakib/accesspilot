@@ -54,6 +54,7 @@ $allowed_endpoints = [
     'get_avatar' => 'get_avatar.php',
     'get_user_security_events' => 'get_user_security_events.php',
     'lookup_user_workstations' => 'lookup_user_workstations.php',
+    'vendor_license_api' => 'vendor_license_api.php',
     'modify_mailbox' => 'modify_mailbox.php',
     'ip_block' => 'ip_block.php',
 ];

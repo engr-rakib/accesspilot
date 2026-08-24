@@ -206,6 +206,7 @@ function render_markdown(string $text): string
         <div>
             <div class="status-banner-title"><?= htmlspecialchars($title) ?></div>
             <div class="status-banner-msg">
+                <a href="<?= admin_page_url('vendor_console') ?>" class="text-white text-decoration-none"><i class="fas fa-arrow-left me-1"></i>Vendor Console</a>
             </div>
         </div>
     </div>

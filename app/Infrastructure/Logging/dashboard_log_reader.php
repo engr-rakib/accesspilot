@@ -76,7 +76,7 @@ if (!function_exists('dashboard_log_domain_dirs')) {
                 if ($key !== '') {
                     $label = $d['label'] ?? '';
                     $baseDn = $d['base_dn'] ?? '';
-                    // Extract AD domain name from base_dn e.g. "DC=example,DC=COM" → "example.com"
+                    // Extract AD domain name from base_dn e.g. "DC=wgbd,DC=COM" → "wgbd.com"
                     $adName = '';
                     if ($baseDn !== '') {
                         $parts = [];

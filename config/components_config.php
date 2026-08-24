@@ -387,7 +387,46 @@ return [
             ]
         ]
     ],
-    
+    'page_vendor_console' => [
+        'name' => 'Vendor License Console',
+        'icon' => 'fa-handshake',
+        'cards' => [
+            'card_vendor_license_generator' => [
+                'name' => 'License Generator', 'icon' => 'fas fa-file-signature',
+                'buttons' => [
+                    'action_vendor_save_license' => ['name' => 'Save & Generate License', 'icon' => 'fas fa-save'],
+                    'action_vendor_reset_form' => ['name' => 'Reset License Form', 'icon' => 'fas fa-redo'],
+                    'action_vendor_verify_credentials' => ['name' => 'Verify Credentials', 'icon' => 'fas fa-shield-alt']
+                ]
+            ],
+            'card_vendor_tracking_table' => [
+                'name' => 'License Tracking Table', 'icon' => 'fas fa-table',
+                'buttons' => [
+                    'action_vendor_refresh_list' => ['name' => 'Refresh License List', 'icon' => 'fas fa-sync-alt']
+                ]
+            ],
+            'card_vendor_key_management' => [
+                'name' => 'Signing Key Management', 'icon' => 'fas fa-key',
+                'buttons' => [
+                    'action_vendor_save_key' => ['name' => 'Save RSA Signing Key', 'icon' => 'fas fa-key'],
+                    'action_vendor_delete_key' => ['name' => 'Delete RSA Signing Key', 'icon' => 'fas fa-trash-alt']
+                ]
+            ],
+            'card_vendor_build_release' => [
+                'name' => 'Build Client Release', 'icon' => 'fas fa-box',
+                'buttons' => [
+                    'action_vendor_build_release' => ['name' => 'Build & Download Release', 'icon' => 'fas fa-download']
+                ]
+            ],
+            'card_vendor_console_log' => [
+                'name' => 'Vendor Console Log', 'icon' => 'fas fa-terminal',
+                'buttons' => [
+                    'action_vendor_clear_log' => ['name' => 'Clear Console Log', 'icon' => 'fas fa-eraser']
+                ]
+            ],
+            'card_vendor_documentation' => ['name' => 'Vendor Documentation Tree', 'icon' => 'fas fa-book']
+        ]
+    ],
     'page_about_us' => [
         'name' => 'About Us',
         'icon' => 'fa-info-circle',

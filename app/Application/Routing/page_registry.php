@@ -17,6 +17,7 @@ function core_admin_resolve_page_config(string $page, string $baseURL, array $ap
         'documentation'       => 'page_documentation',
         'documentation_guide' => 'page_documentation_guide',
         'license'             => '',
+        'vendor_console'      => 'page_vendor_console',
         'license_doc'         => '',
         'ad-guide'            => '',
         'ad-objects'          => '',
@@ -165,6 +166,13 @@ function core_admin_resolve_page_config(string $page, string $baseURL, array $ap
             $content_for_layout = include_path('resources/views/pages/license/license_status_view.php');
             break;
 
+        case 'vendor_console':
+            $pageTitle = 'Vendor Console';
+            $pageDescription = 'Generate, sign, and manage license certificates for client deployments.';
+            $show_sidebar = true;
+            $content_for_layout = include_path('resources/views/pages/license/vendor_view.php');
+            $page_scripts[] = $baseURL . '/resources/frontend/js/modules/vendor_actions.js?v=' . $app_config['app_info']['version'];
+            break;
 
         case 'license_doc':
             $pageTitle = 'Documentation';

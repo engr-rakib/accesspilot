@@ -1,0 +1,38 @@
+/* Exchange Management styles */
+#exchangeResultBody ul {
+    padding-left: 0;
+}
+
+#exchangeResultBody li {
+    transition: background 0.15s;
+}
+
+#exchangeResultBody li:hover {
+    background: rgba(128, 128, 128, 0.05);
+    border-radius: 4px;
+}
+
+.action-exchange-enable,
+.action-exchange-disable {
+    transition: all 0.2s;
+}
+
+.action-exchange-enable:hover {
+    background: var(--success, #10b981) !important;
+    color: #fff !important;
+}
+
+.action-exchange-disable:hover {
+    background: var(--danger, #ef4444) !important;
+    color: #fff !important;
+}
+
+/* NOC tabs consistent with monitoring page */
+#exchangeTabs .noc-tab-item {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#exchangeTabs .noc-tab-item:hover {
+    opacity: 0.85;
+}

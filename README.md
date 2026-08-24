@@ -238,32 +238,40 @@ C:\access_pilot_logs\             ← application logs
 
 ## 🚀 Installation
 
-AccessPilot is **not distributed as a download**. The installer runs on YOUR live server, fetches the product directly and removes the source — the code never exists as a copyable artifact.
+Install with a single command — the installer downloads the release (checksum-verified), deploys it and starts the portal in **read-only evaluation mode**.
 
 ### Linux / Docker ⭐ (recommended)
 
 ```bash
-ACCESSPILOT_INSTALL_TOKEN=<your-token> bash <(curl -fsSL https://raw.githubusercontent.com/engr-rakib/accesspilot/main/install.sh)
+curl -fsSL https://github.com/<owner>/accesspilot/releases/latest/download/install.sh | bash
 ```
 
-### Windows / IIS (PowerShell)
+### Manual (Linux/Docker)
+
+```bash
+git clone https://github.com/<owner>/accesspilot.git
+cd accesspilot/docker
+docker compose up -d --build
+```
+
+<details>
+<summary><strong>Windows / IIS</strong> — also supported (click to expand)</summary>
 
 ```powershell
-$env:ACCESSPILOT_INSTALL_TOKEN='<your-token>'; irm https://raw.githubusercontent.com/engr-rakib/accesspilot/main/install.ps1 | iex
+irm https://github.com/<owner>/accesspilot/releases/latest/download/install.ps1 | iex
 ```
 
-> 🔑 **The install token is issued by Trendpilot** (the vendor) — see [Trial & Subscription](#-trial--subscription). It grants install rights only and can be revoked anytime.
+Installs to `C:\inetpub\accesspilot`, registers the IIS site and binds HTTPS. Vault: `C:\inetpub\Desk_secure_files`.
+</details>
 
-### What the installer does
+### First steps after install
 
-1. Verifies prerequisites (Docker, git, rsync)
-2. Fetches the product onto **this machine only** (source clone is deleted after deploy)
-3. Creates the vault (`/data/secure`) + logs (`/data/logs`) on persistent storage
-4. Starts the portal — first boot builds the image (5–10 min), then serves HTTPS
+1. Open `https://<server-ip>/`
+2. First run seeds a default administrator — **change the password immediately**
+3. Explore every page and workflow freely — **evaluation mode needs no license**
+4. When ready to operate → [Trial & Subscription](#-trial--subscription)
 
 Deep dive → **[DOCKER_DEPLOYMENT.md](docs/client/features/DOCKER_DEPLOYMENT.md)**
-
----
 
 ---
 
@@ -273,13 +281,13 @@ AccessPilot is a licensed product by **Trendpilot**. The repository owner is the
 
 ### 🆓 Free Trial — start today
 
-Ask the vendor for a **trial install token** — no payment, no commitment.
+The **entire application is explorable free of charge** in read-only evaluation mode:
 
-- Install on your own server and explore **all 20+ pages, every workflow** — nothing is hidden
-- Runs in read-only evaluation mode until you apply a license
-- Your trial token can be revoked anytime; your server, your data
+- All 20+ pages, every workflow, every report — nothing is hidden
+- No license key, no credit card, no signup required
+- Runs indefinitely until you apply a certificate
 
-👉 Email/call the vendor below and you'll get a token, usually within hours.
+👉 Just follow [Installation](#-installation) above — that IS the trial.
 
 ### 📞 Contact the Vendor (repository owner)
 
@@ -299,7 +307,7 @@ For trials beyond evaluation limits, subscription pricing, demos or questions �
 
 ### 💳 How to subscribe
 
-1. **Get a trial token** — contact the vendor, install, evaluate freely on your own server.
+1. **Evaluate** — install and explore freely (see [Free Trial](#🆓-free-trial--start-today)).
 2. **Contact us** — email/call the vendor with your requirement (number of operators, sites).
 3. **Get machine ID** — from the in-app **License Center**, copy your **machine ID + site ID**.
 4. **Receive certificate** — you get an **RSA-2048 signed certificate bound to your deployment**, usually within one business day of payment confirmation.

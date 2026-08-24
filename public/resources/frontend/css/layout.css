@@ -1,0 +1,1708 @@
+/* ============================================================
+   Layout Styles - Shell, Rail, Context Pane, Workspace
+   ============================================================ */
+
+/* --- 1. Root Layout Variables --- */
+:root {
+    --rail-width: 68px;
+    --context-width: 260px;
+    --whatsapp-bg: #f0f2f5;
+    --whatsapp-rail-bg: #e9edef;
+    --whatsapp-border: #d1d7db;
+    --whatsapp-active: #00a884;
+
+    /* Workspace Spacing (Tightened & Identical Gaps) */
+    --ws-pad-top: 12px;
+    --ws-pad-right: 12px;
+    --ws-pad-bottom: 12px;
+    --ws-pad-left: 12px;
+
+    /* Vertical Card Separation (The Contract) */
+    --ws-card-gap: 10px;
+}
+
+/* --- 2. Base HTML/Body Layout --- */
+html {
+    height: 100% !important;
+}
+
+body {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: hidden;
+    padding-top: 60px !important;
+}
+
+.container-fluid {
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+header {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 1030 !important;
+}
+
+header .navbar-brand span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+header.navbar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 0 !important;
+}
+
+/* --- 3. WhatsApp Shell Body --- */
+body.shell-whatsapp {
+    background-color: var(--whatsapp-bg) !important;
+    overflow: hidden !important;
+    height: 100vh !important;
+    padding-top: 0 !important;
+}
+
+html body.shell-whatsapp {
+    background-color: #f0f2f5 !important;
+    overflow: hidden !important;
+    padding-top: 0 !important;
+}
+
+html body.shell-whatsapp .dashboard-content,
+html body.shell-whatsapp #dashboard-container,
+html body.shell-whatsapp .profile-view,
+html body.shell-whatsapp .noc-tab-content {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* --- 4. WhatsApp Shell Layout Contract (Kill Legacy Padding) --- */
+html body.shell-whatsapp aside,
+html body.shell-whatsapp .shell-context-pane,
+html body.shell-whatsapp main,
+html body.shell-whatsapp .shell-workspace {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+html body.shell-whatsapp .container-fluid,
+html body.shell-whatsapp .workspace-content-scroll .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll #spa-main-content > div,
+html body.shell-whatsapp .workspace-content-scroll .row {
+    margin-top: 0 !important;
+    margin-bottom: var(--ws-card-gap) !important;
+}
+
+html body.shell-whatsapp .card {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Hide legacy sidebar elements in WhatsApp shell */
+.shell-whatsapp .main-content-area,
+.shell-whatsapp .app-shell-grid,
+.shell-whatsapp #left-sidebar {
+    display: none !important;
+}
+
+/* Hide containers by default */
+#manualCreateFormContainerRow,
+#exportUserCardContainer,
+#actionTakenCardContainer {
+    display: none;
+}
+
+#manualCreateFormContainerRow.visible,
+#directoryBuilderFormContainerRow.visible,
+#exportUserCardContainer.visible,
+#actionTakenCardContainer.visible {
+    display: block !important;
+}
+
+/* Conditional Visibility */
+html body.shell-whatsapp .info-card-shell,
+#actionTakenCardContainer {
+    display: none;
+}
+
+html body.shell-whatsapp .info-card-shell.visible,
+#actionTakenCardContainer.visible {
+    display: block !important;
+}
+
+#infoCardsContainer,
+#actionTakenCardContainer {
+    display: none;
+}
+#infoCardsContainer.visible,
+#actionTakenCardContainer.visible {
+    display: block !important;
+}
+
+/* --- 5. App Shell Container --- */
+.app-shell-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+html body.shell-whatsapp .app-shell-container {
+    display: flex !important;
+    height: 100vh !important;
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* --- 6. Vertical Rail --- */
+.shell-vertical-rail {
+    width: var(--rail-width);
+    background-color: var(--whatsapp-rail-bg);
+    border-right: 1px solid var(--whatsapp-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 0;
+    z-index: 1050;
+    flex-shrink: 0;
+}
+
+html body.shell-whatsapp .shell-vertical-rail {
+    width: 68px !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 20px 0 !important;
+    background-color: #e9edef !important;
+    border-right: 1px solid #d1d7db !important;
+    transition: width 0.3s ease !important;
+}
+
+/* --- 7. Navigation Items & Rail Bottom --- */
+.rail-item {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #54656f;
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    text-decoration: none;
+}
+
+.rail-item {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #54656f !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+}
+
+.rail-item:hover {
+    background-color: rgba(17, 27, 33, 0.06) !important;
+    color: #111b21 !important;
+    transform: scale(1.04);
+}
+
+.rail-item.active {
+    color: #8b2eb8 !important;
+    background-color: rgba(139, 46, 184, 0.08) !important;
+    box-shadow: 0 2px 8px rgba(139, 46, 184, 0.06) !important;
+    transform: scale(1.03);
+}
+
+.rail-item.active::before {
+    content: "" !important;
+    position: absolute !important;
+    left: -12px !important;
+    top: 10px !important;
+    bottom: 10px !important;
+    width: 4px !important;
+    background: #8b2eb8 !important;
+    border-radius: 0 4px 4px 0 !important;
+    transition: top 0.25s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.rail-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.rail-bottom {
+    margin-top: auto !important;
+    margin-bottom: 60px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+}
+
+.rail-bottom .rail-item:last-child {
+    margin-bottom: 0 !important;
+}
+
+.rail-item img {
+    border: 2px solid transparent !important;
+    transition: border-color 0.3s ease, transform 0.3s ease !important;
+}
+
+/* --- 8. Context Pane --- */
+.shell-context-pane {
+    width: var(--context-width);
+    background-color: #ffffff;
+    border-right: 1px solid var(--whatsapp-border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.context-header {
+    padding: 16px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f2f5;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.context-header {
+    padding: 12px 12px 0 12px;
+    background-color: transparent;
+    border-bottom: none !important;
+}
+
+.context-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #ffffff;
+    padding: 0 12px;
+}
+
+.context-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: transparent;
+    padding: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane {
+    width: 280px !important;
+    flex-shrink: 0 !important;
+    background-color: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-right: 1px solid #d1d7db !important;
+    z-index: 20 !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body {
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 12px 16px 12px !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    scrollbar-width: thin !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.08) !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar-thumb {
+    background: rgba(100,116,139,0.32) !important;
+    border-radius: 999px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(100,116,139,0.5) !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .button-group {
+    display: flex !important;
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+    padding: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane {
+    width: 280px !important;
+    flex-shrink: 0 !important;
+    background-color: var(--context-pane-bg, transparent) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-right: 1px solid var(--border-color, #d1d7db) !important;
+    z-index: 20 !important;
+    overflow: hidden !important;
+    min-height: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-header {
+    background-color: transparent !important;
+    background: transparent !important;
+    border-bottom: none !important;
+    padding: 16px 16px 0 16px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-header {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    padding: 16px 12px 0 12px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Shell sidebar spacing contract */
+html body.shell-whatsapp .shell-context-pane .context-header {
+    padding: 12px 12px 0 12px !important;
+}
+
+/* --- Action buttons (side panel) --- */
+html body.shell-whatsapp .shell-context-pane .action-button {
+    flex: 1 1 0 !important;
+    width: 0 !important;
+    padding: 7px 6px !important;
+    min-height: 36px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: var(--font-base, 0.85rem) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-header {
+    padding: 16px 12px 0 12px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body {
+    padding: 0 12px 16px 12px !important;
+}
+
+/* Context pane shell layout */
+html body.shell-whatsapp .shell-context-pane .context-body {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body > * {
+    flex-shrink: 0 !important;
+}
+
+html body.shell-whatsapp .context-body {
+    background: transparent !important;
+}
+
+html body.shell-whatsapp .context-header {
+    background: transparent !important;
+}
+
+html body.shell-whatsapp [data-section] {
+    background: transparent !important;
+}
+
+html body.shell-whatsapp #quick-actions-panel {
+    background: transparent !important;
+}
+
+/* --- 9. Workspace & Workspace Header --- */
+.shell-workspace {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--whatsapp-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.workspace-header {
+    height: 52px;
+    min-height: 52px;
+    background: var(--header-bg, #ffffff);
+    border-bottom: 1px solid var(--border-color, #e9edef);
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    justify-content: space-between;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.workspace-header {
+    height: 52px !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: var(--shell-workspace-pad-x, 6px) !important;
+    padding-right: var(--shell-workspace-pad-x, 6px) !important;
+    background: linear-gradient(135deg, var(--header-bg, #ffffff), color-mix(in srgb, var(--header-bg, #ffffff), #000 18%)) !important;
+    border-bottom: 1px solid var(--border-color, #e9edef) !important;
+    position: relative !important;
+    z-index: 100 !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+}
+
+html body.shell-whatsapp .workspace-header #portal-page-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    line-height: 52px !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    color: var(--header-text, #ffffff) !important;
+}
+
+.workspace-header .header-right-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    height: 100% !important;
+}
+
+.workspace-header .shell-header-tools {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    height: 100% !important;
+}
+
+.workspace-header .shell-tool-btn {
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    font-size: 1.1rem !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    transition: background 0.15s !important;
+    color: var(--header-text, #ffffff) !important;
+    opacity: 0.8 !important;
+}
+
+.workspace-header .shell-tool-btn:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    opacity: 1 !important;
+}
+
+.workspace-header .header-divider {
+    width: 1px !important;
+    height: 20px !important;
+    background: var(--border-color, #d1d7db) !important;
+    flex-shrink: 0 !important;
+    opacity: 0.6 !important;
+}
+
+.workspace-header .shell-user-block {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    height: 100% !important;
+}
+
+.workspace-header .user-top-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+}
+
+.workspace-header .user-icon {
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+    color: var(--header-text, #ffffff) !important;
+}
+
+.workspace-header .user-name {
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+    color: var(--header-text, #ffffff) !important;
+}
+
+.workspace-header .user-clock {
+    font-size: 0.82rem !important;
+    opacity: 0.75 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    line-height: 1.2 !important;
+    justify-content: flex-end !important;
+    color: var(--header-text, #ffffff) !important;
+}
+
+.workspace-header .user-clock i {
+    font-size: 0.78rem !important;
+    color: var(--header-text, #ffffff) !important;
+}
+
+.workspace-content-scroll {
+    flex-grow: 1 !important;
+    overflow-y: auto !important;
+    padding: var(--ws-pad-top) var(--ws-pad-right) var(--ws-pad-bottom) var(--ws-pad-left) !important;
+}
+
+.workspace-content-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: var(--workspace-padding);
+    background-color: #f0f2f5;
+}
+
+.workspace-content-scroll {
+    flex-grow: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 16px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+.workspace-content-scroll::-webkit-scrollbar {
+    display: none !important;
+}
+
+html body.shell-whatsapp .shell-workspace {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: transparent !important;
+    overflow: hidden !important;
+}
+
+html body.shell-whatsapp header.workspace-header {
+    height: var(--shell-header-height, 52px) !important;
+    min-height: var(--shell-header-height, 52px) !important;
+    padding-left: var(--shell-workspace-pad-x) !important;
+    padding-right: var(--shell-workspace-pad-x) !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll {
+    padding: var(--shell-workspace-pad-y) var(--shell-workspace-pad-x) !important;
+}
+
+html body.shell-whatsapp #spa-main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+html body.shell-whatsapp .shell-workspace {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Workspace content scroll: child spacing */
+html body.shell-whatsapp .workspace-content-scroll #spa-main-content > div,
+html body.shell-whatsapp .workspace-content-scroll .row {
+    margin-bottom: var(--shell-card-gap) !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .row:last-child,
+html body.shell-whatsapp .workspace-content-scroll #spa-main-content > div:last-child {
+    margin-bottom: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .container-fluid,
+html body.shell-whatsapp .workspace-content-scroll .main-content-area,
+html body.shell-whatsapp .workspace-content-scroll main,
+html body.shell-whatsapp .workspace-content-scroll aside {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--shell-grid-half-gap-x) * -1) !important;
+    margin-right: calc(var(--shell-grid-half-gap-x) * -1) !important;
+    --bs-gutter-x: var(--shell-grid-gap-x) !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .row.gx-0 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    --bs-gutter-x: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .row > [class*='col-'] {
+    padding-left: var(--shell-grid-half-gap-x) !important;
+    padding-right: var(--shell-grid-half-gap-x) !important;
+    margin-bottom: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll .row.gx-0 > [class*='col-'] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+html body.shell-whatsapp .shell-workspace {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+}
+
+html body.shell-whatsapp .workspace-content-scroll {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* --- 10. SPA Content Area Layout --- */
+.main-content-area {
+    flex-grow: 1 !important;
+    margin-top: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+main {
+    flex-grow: 1;
+}
+
+#log-card-row {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#recent-activity-card {
+    display: flex;
+    flex-direction: column;
+}
+
+#recent-activity-card > .card-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+#recent-activity-card .log-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+#recent-activity-card .log-table-wrapper {
+    flex: 0 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+#recent-activity-card .log-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+#recent-activity-card .log-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+#recent-activity-card .log-table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.38);
+    border-radius: 999px;
+}
+
+/* --- 11. SPA Content Transitions --- */
+#spa-main-content {
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#spa-main-content.spa-page-exit {
+    opacity: 0 !important;
+    transform: scale(0.98) translateY(-4px) !important;
+}
+
+#spa-main-content.spa-page-enter {
+    animation: spaPageEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+#spa-main-content > div {
+    transition: all 0.4s ease-in-out;
+}
+
+/* --- 12. Shell Filter Pills --- */
+.shell-filter-pills {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.shell-filter-pills::-webkit-scrollbar {
+    display: none;
+}
+
+.shell-filter-pills {
+    margin-bottom: 4px !important;
+}
+
+html body.shell-whatsapp .shell-filter-pills {
+    margin-top: 8px !important;
+    margin-bottom: 10px !important;
+}
+
+.filter-pill {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+.filter-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.filter-pill.active {
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.2);
+}
+
+[data-section] {
+    /* will-change removed to fix blurry rendering */
+}
+
+/* --- 13. Offcanvas Menu Positioning --- */
+.offcanvas-menu-card {
+    background-color: var(--header-bg) !important;
+}
+
+.offcanvas-menu-card .list-group-item {
+    background-color: transparent !important;
+}
+
+.offcanvas-menu-card .list-group-item a {
+    color: var(--header-text) !important;
+}
+
+.offcanvas-menu-card .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- 14. Action Section Title Spacing --- */
+.action-section-title {
+    margin-top: 12px !important;
+    margin-bottom: 6px !important;
+    font-size: 0.72rem !important;
+    color: #64748b !important;
+    padding-left: 0 !important;
+    text-transform: uppercase;
+}
+
+[data-section].first-visible .action-section-title {
+    margin-top: 0 !important;
+}
+
+html body.shell-whatsapp .action-section-title {
+    margin-top: 12px !important;
+    margin-bottom: 6px !important;
+}
+
+.assistant-search-group {
+    display: none !important;
+    margin-bottom: 0 !important;
+}
+
+html body.shell-whatsapp .assistant-search-group {
+    margin-bottom: 12px !important;
+}
+
+/* --- 15. FINAL SHELL LAYOUT LOCK --- */
+html body.shell-whatsapp {
+    --shell-rail-width: 68px;
+    --shell-context-width: 280px;
+    --shell-header-height: 52px;
+    --shell-pane-gap: 2px;
+    --shell-workspace-pad-x: 12px;
+    --shell-workspace-pad-y: 12px;
+    --shell-card-gap: 10px;
+    --shell-assistant-pad-x: 10px;
+    --shell-grid-gap-x: 6px;
+    --shell-grid-half-gap-x: 3px;
+}
+
+html body.shell-whatsapp .app-shell-container {
+    display: grid !important;
+    grid-template-columns: var(--shell-rail-width) var(--shell-context-width) minmax(0, 1fr) !important;
+    column-gap: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+}
+
+html body.shell-whatsapp .shell-vertical-rail {
+    width: var(--shell-rail-width) !important;
+    min-width: var(--shell-rail-width) !important;
+    max-width: var(--shell-rail-width) !important;
+    border-right: 1px solid var(--whatsapp-border) !important;
+    margin: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane {
+    width: var(--shell-context-width) !important;
+    min-width: var(--shell-context-width) !important;
+    max-width: var(--shell-context-width) !important;
+    border-right: 1px solid var(--whatsapp-border) !important;
+    margin: 0 !important;
+}
+
+html body.shell-whatsapp .shell-workspace {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* --- 16. Navigation Rail System --- */
+.rail-system-container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+    z-index: 1100;
+    flex-shrink: 0;
+    overflow: visible !important;
+}
+
+.main-rail {
+    width: 68px !important;
+    background-color: var(--rail-bg, #e9edef) !important;
+    border-right: 1px solid var(--border-color, #d1d7db) !important;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 0 !important;
+    flex-shrink: 0;
+    height: 100vh !important;
+}
+
+.child-rail-flyout {
+    width: 64px !important;
+    background-color: var(--ws-card-bg, #f0f2f5) !important;
+    border-right: 1px solid var(--border-color, #d1d7db) !important;
+    position: absolute !important;
+    left: 68px;
+    top: 0;
+    bottom: 0;
+    z-index: 9;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 0 !important;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+}
+
+.child-rail-flyout.is-visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.shell-header-tools,
+.theme-selector-container,
+.shell-user-block {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+html body.shell-whatsapp .card-body {
+    padding: 16px !important;
+}
+
+html body.shell-whatsapp .card-header {
+    padding: 0 !important;
+    background: transparent !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+html body.shell-whatsapp .card-title,
+html body.shell-whatsapp .log-title-wrapper,
+html body.shell-whatsapp .app-table-title {
+    padding: 12px 16px !important;
+    min-height: 44px !important;
+}
+
+html body.shell-whatsapp .profile-card {
+    margin-bottom: 10px !important;
+}
+
+html body.shell-whatsapp .button-group {
+    margin-bottom: 8px !important;
+    gap: 6px !important;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-bottom: 8px;
+    padding: 0 2px;
+}
+
+/* --- 18. Footer Layout in Shell --- */
+html body.shell-whatsapp footer {
+    background: transparent !important;
+    background-color: transparent !important;
+    position: relative !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: auto !important;
+    padding: 0.85rem 0 !important;
+    font-size: 0.65rem !important;
+    font-weight: 400 !important;
+    color: var(--footer-text, #6c757d) !important;
+    z-index: 1 !important;
+}
+
+html body.shell-whatsapp .workspace-footer-wrapper,
+html body.shell-whatsapp footer {
+    flex-shrink: 0 !important;
+}
+
+/* --- 19. Mobile / Responsive Adjustments --- */
+@media (max-width: 767.98px) {
+    #left-sidebar,
+    #quick-actions-card,
+    #quick-actions-card > .card-body,
+    #quick-actions-card .form-group,
+    #quick-actions-card #actionForm {
+        display: block;
+        min-height: auto;
+    }
+
+    .container-fluid {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+
+    .main-content-area aside {
+        display: block !important;
+        z-index: 1001;
+        position: relative;
+    }
+
+    .main-content-area main {
+        border-left: none !important;
+        padding-left: 0 !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background-color: transparent !important;
+    }
+
+    .main-content-area .col-md-3,
+    .main-content-area .col-md-9,
+    .main-content-area .col-md-6,
+    .main-content-area .col-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .main-content-area .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0px !important;
+        --bs-gutter-x: 0 !important;
+    }
+
+    .card {
+        margin-bottom: 1rem !important;
+    }
+
+    .card-body {
+        padding: 0.25rem !important;
+    }
+
+    .card {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    header.navbar {
+        height: 45px !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    header .navbar-brand img {
+        height: 28px !important;
+    }
+
+    header .navbar-brand span {
+        font-size: 0.9rem !important;
+        white-space: nowrap;
+    }
+
+    .header-info-group {
+        margin-right: 0.5rem !important;
+    }
+
+    .header-info-group span {
+        font-size: 0.7rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .theme-selector-container {
+        margin-right: 0.5rem !important;
+    }
+
+    .menu-icon-btn {
+        margin-left: 0.25rem !important;
+    }
+
+    .header-info-group {
+        line-height: 1.0;
+    }
+
+    .welcome-message {
+        margin-top: 0;
+    }
+
+    .menu-icon-btn {
+        padding: 0;
+        line-height: 1;
+        min-height: 0;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .offcanvas-menu-card {
+        height: auto;
+        background-color: transparent !important;
+        width: fit-content !important;
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: top right;
+        transition: all 0.3s ease-out;
+        max-height: fit-content;
+        position: fixed !important;
+        top: 55px !important;
+        right: 4px !important;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        z-index: 1040 !important;
+        box-sizing: border-box;
+    }
+
+    .offcanvas-menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .offcanvas-body {
+        text-align: left;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .offcanvas-menu-card .list-group-item {
+        color: #FFFFFF !important;
+        background-color: transparent !important;
+        border: none;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .offcanvas-menu-card.show-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+
+    .menu-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .menu-icon.rotated {
+        transform: rotate(90deg);
+    }
+}
+
+/* WhatsApp Shell Mobile Adjustments */
+@media (max-width: 767.98px) {
+    .app-shell-container {
+        flex-direction: column;
+    }
+
+    .shell-vertical-rail {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 8px;
+        order: 2;
+        border-right: none;
+        border-top: 1px solid var(--whatsapp-border);
+    }
+
+    .rail-item {
+        margin-bottom: 0;
+        margin-right: 8px;
+    }
+
+    .rail-bottom {
+        flex-direction: row;
+        margin-top: 0;
+        margin-left: auto;
+    }
+
+    .shell-context-pane {
+        width: 100%;
+        height: 300px;
+        order: 3;
+        border-right: none;
+        border-top: 1px solid var(--whatsapp-border);
+    }
+
+    .shell-workspace {
+        height: calc(100vh - 364px);
+        order: 1;
+    }
+
+    .workspace-content-scroll {
+        padding: var(--app-gutter-mobile) !important;
+    }
+
+    .workspace-content-scroll .card {
+        margin-bottom: var(--app-gutter-mobile) !important;
+    }
+
+    .container-fluid {
+        padding-left: var(--app-gutter-mobile) !important;
+        padding-right: var(--app-gutter-mobile) !important;
+    }
+
+    .offcanvas-menu-card .list-group-item a {
+        text-decoration: none;
+        color: #FFFFFF !important;
+    }
+}
+
+/* --- 20. Desktop Layout Adjustments --- */
+@media (min-width: 768px) {
+    body {
+        padding-top: 0;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .col-md-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-md-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    aside {
+        position: relative;
+        padding-right: 15px;
+        padding-left: 15px !important;
+    }
+
+    aside::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -1px;
+        width: 1px;
+        height: 100%;
+        background-color: #dee2e6;
+    }
+
+    main {
+        padding-left: 15px;
+    }
+
+    .header-info-group span {
+        line-height: 1;
+        margin: 0;
+    }
+
+    .menu-icon-btn {
+        padding: 0;
+        line-height: 1;
+        min-height: 0;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .offcanvas-menu-card {
+        position: fixed !important;
+        top: 55px !important;
+        right: 4rem !important;
+        left: auto;
+        width: fit-content !important;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        height: auto;
+        max-height: fit-content;
+        background-color: transparent !important;
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: top right;
+        transition: all 0.3s ease-out;
+        z-index: 1040 !important;
+        box-sizing: border-box;
+    }
+
+    .offcanvas-menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .offcanvas-body {
+        text-align: left;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .list-group-item {
+        padding: 0.25rem 0.25rem;
+        background-color: transparent;
+        border: none;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .list-group-item a {
+        color: white !important;
+        text-decoration: none;
+    }
+
+    .offcanvas-menu-card.show-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+
+    .menu-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .menu-icon.rotated {
+        transform: rotate(90deg);
+    }
+}
+
+/* --- 21. Theme Selector Polish in Rail Bottom --- */
+.theme-selector-horizontal .theme-color-box {
+    width: 10px;
+    height: 10px;
+    margin: 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.theme-selector-horizontal .theme-color-box:hover {
+    transform: scale(1.3);
+}
+
+/* --- 22. Overflow visible card for dropdowns --- */
+.overflow-visible-card {
+    overflow: visible !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: none !important;
+}
+
+/* Force overflow on card body when inside overflow-visible-card */
+.overflow-visible-card .card-body {
+    overflow: visible !important;
+}
+
+.card-body:has(.custom-select-container) {
+    overflow: visible !important;
+}
+
+/* --- 23. Workspace content scroll card hover --- */
+.workspace-content-scroll .card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.workspace-content-scroll .card:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+}
+
+/* --- 24. Side card context body styles --- */
+html body.shell-whatsapp .shell-context-pane [data-section] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-section-title {
+    margin-bottom: 8px !important;
+    padding-top: 4px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .mt-3,
+html body.shell-whatsapp .shell-context-pane .mt-4 {
+    margin-top: 8px !important;
+}
+
+html body.shell-whatsapp #quick-actions-panel {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+    overflow: visible !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body > #quick-actions-panel {
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* --- 25. Context body separator hiding --- */
+html body.shell-whatsapp .context-body hr,
+html body.shell-whatsapp .context-body .border-top,
+html body.shell-whatsapp [data-section] + hr,
+html body.shell-whatsapp [data-section] + .border-top {
+    display: none !important;
+    border: none !important;
+}
+
+html body.shell-whatsapp .context-body .pt-0.pb-3 {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+}
+
+/* --- 26. Context pane card stripping --- */
+html body.shell-whatsapp .shell-context-pane .card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+html body.shell-whatsapp #quick-actions-panel .card::before,
+html body.shell-whatsapp .shell-context-pane .card::before,
+html body.shell-whatsapp #quick-actions-panel .card::after,
+html body.shell-whatsapp .shell-context-pane .card::after {
+    display: none !important;
+}
+
+html body.shell-whatsapp #quick-actions-panel .card-header,
+html body.shell-whatsapp .shell-context-pane .card-header {
+    background: transparent !important;
+    border: none !important;
+    padding: 8px 0 !important;
+    min-height: auto !important;
+}
+
+html body.shell-whatsapp #quick-actions-panel .card-body,
+html body.shell-whatsapp .shell-context-pane .card-body {
+    background: transparent !important;
+    padding: 4px 0 !important;
+}
+
+/* --- 27. Mobile log table layout --- */
+@media (max-width: 767.98px) {
+    main .log-container .log-table {
+        table-layout: fixed;
+        width: 100% !important;
+    }
+
+    main .log-container .log-table th,
+    main .log-container .log-table td {
+        padding: 5px 3px !important;
+        white-space: normal !important;
+        word-break: break-all !important;
+        text-align: left !important;
+    }
+
+    main .log-container .log-table th:last-child,
+    main .log-container .log-table td:last-child {
+        text-align: left !important;
+    }
+}
+
+/* --- 28. Assistant Search Field Layout --- */
+html body.shell-whatsapp .assistant-search-wrapper {
+    margin-bottom: 10px !important;
+}
+
+html body.shell-whatsapp .assistant-search-field {
+    display: flex !important;
+    align-items: center !important;
+    border: 1.5px solid rgba(0,0,0,0.12) !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,0.9) !important;
+    padding: 0 12px !important;
+    height: 40px !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+html body.shell-whatsapp .assistant-search-input {
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-size: 0.85rem !important;
+    color: var(--text-color) !important;
+    padding: 0 !important;
+    height: 100% !important;
+    line-height: 40px !important;
+}
+
+/* Remove old input-group styles */
+html body.shell-whatsapp .assistant-search-group {
+    display: none !important;
+}
+
+/* --- 33. Responsive Shell Breakpoints --- */
+
+/* 1200px - Large tablets / small desktops */
+@media (max-width: 1200px) {
+    html body.shell-whatsapp {
+        --shell-context-width: 240px !important;
+        --shell-workspace-pad-x: 8px !important;
+        --shell-workspace-pad-y: 8px !important;
+    }
+}
+
+/* 992px - Tablets */
+@media (max-width: 992px) {
+    html body.shell-whatsapp {
+        --shell-context-width: 220px !important;
+        --shell-header-height: 44px !important;
+        --shell-workspace-pad-x: 6px !important;
+        --shell-workspace-pad-y: 6px !important;
+        --shell-card-gap: 8px !important;
+        --shell-assistant-pad-x: 8px !important;
+    }
+
+    html body.shell-whatsapp .workspace-header-title {
+        font-size: 0.9rem !important;
+    }
+
+    html body.shell-whatsapp .shell-tool-btn {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.8rem !important;
+    }
+
+    html body.shell-whatsapp .shell-user-block .user-name {
+        font-size: 0.78rem !important;
+    }
+
+    html body.shell-whatsapp .shell-user-block .user-clock {
+        font-size: 0.62rem !important;
+    }
+
+    html body.shell-whatsapp .header-divider {
+        margin: 0 6px !important;
+    }
+
+    html body.shell-whatsapp .workspace-content-scroll .card-body {
+        padding: 12px !important;
+    }
+
+    html body.shell-whatsapp .card-title,
+    html body.shell-whatsapp .log-title-wrapper,
+    html body.shell-whatsapp .app-table-title {
+        padding: 10px 12px !important;
+        min-height: 38px !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* 767.98px - Mobile: improve existing WhatsApp adjustments */
+@media (max-width: 767.98px) {
+    html body.shell-whatsapp {
+        --shell-header-height: 40px !important;
+        --shell-workspace-pad-x: 4px !important;
+        --shell-workspace-pad-y: 4px !important;
+        --shell-card-gap: 6px !important;
+    }
+
+    html body.shell-whatsapp .shell-context-pane {
+        height: 200px !important;
+    }
+
+    html body.shell-whatsapp .shell-workspace {
+        height: calc(100vh - 320px) !important;
+    }
+
+    html body.shell-whatsapp .workspace-header-title {
+        font-size: 0.85rem !important;
+    }
+
+    html body.shell-whatsapp .workspace-header {
+        padding: 0 6px !important;
+    }
+
+    html body.shell-whatsapp .shell-tool-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.75rem !important;
+    }
+
+    html body.shell-whatsapp .shell-user-block .user-name {
+        display: none !important;
+    }
+
+    html body.shell-whatsapp .shell-user-block .user-clock {
+        font-size: 0.6rem !important;
+    }
+
+    html body.shell-whatsapp .shell-user-block .user-icon {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.75rem !important;
+    }
+
+    html body.shell-whatsapp .workspace-content-scroll .card-body {
+        padding: 8px !important;
+    }
+
+    html body.shell-whatsapp .card-title,
+    html body.shell-whatsapp .log-title-wrapper,
+    html body.shell-whatsapp .app-table-title {
+        padding: 8px 8px !important;
+        min-height: 34px !important;
+        font-size: 0.8rem !important;
+    }
+
+    html body.shell-whatsapp .workspace-content-scroll .card {
+        margin-bottom: 6px !important;
+    }
+
+    /* Stack info card rows vertically */
+    html body.shell-whatsapp .info-cards-container .row {
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+
+    html body.shell-whatsapp .info-cards-container .col-md-6,
+    html body.shell-whatsapp .info-cards-container .col-md-4,
+    html body.shell-whatsapp .info-cards-container .col-md-3 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* Stack form rows vertically */
+    html body.shell-whatsapp .row .col-md-6,
+    html body.shell-whatsapp .row .col-md-4,
+    html body.shell-whatsapp .row .col-md-3,
+    html body.shell-whatsapp .row .col-md-8,
+    html body.shell-whatsapp .row .col-md-2 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    html body.shell-whatsapp .assistant-search-wrapper {
+        margin-bottom: 6px !important;
+    }
+
+    html body.shell-whatsapp .shell-filter-pills {
+        gap: 4px !important;
+    }
+
+    html body.shell-whatsapp .shell-filter-pills .badge {
+        font-size: 0.65rem !important;
+        padding: 2px 8px !important;
+    }
+
+    /* Hide user avatar in rail on mobile if space is tight */
+    html body.shell-whatsapp .shell-vertical-rail .rail-item img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+}

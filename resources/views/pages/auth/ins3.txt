@@ -1,0 +1,32 @@
+Write production-quality CSS.
+
+Requirements
+
+- CSS Variables
+- Responsive
+- Glassmorphism
+- Soft shadows
+- Gradient background
+- Animated blobs
+- Backdrop filter
+- Smooth transitions
+- Bootstrap compatible
+- No !important unless necessary
+- Organized by sections
+
+Sections
+
+1 Root Variables
+2 Reset
+3 Body
+4 Background
+5 Login Card
+6 Header
+7 Inputs
+8 Buttons
+9 Divider
+10 Footer
+11 Responsive
+12 Animations
+
+Comment every section.

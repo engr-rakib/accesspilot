@@ -1,0 +1,1237 @@
+/* ============================================================
+   Animations & Keyframes
+   ============================================================ */
+
+/* ANIMATION CLASS: fadeIn | Used by: .card.fade-in, .fade-in class | Purpose: Generic fade-in + translateY card entrance */
+.card.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* ANIMATION: fadeIn | Used by: .card.fade-in, .fade-in class | Purpose: Generic fade-in + translateY card entrance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading spinner styles */
+.loading-spinner {
+    display: none; /* Hide default spinner */
+}
+
+/* ANIMATION: slideInLeft | Used by: .slide-in-left (sidebar) | Purpose: Left-to-right slide entrance for sidebar/rail */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ANIMATION: slideInTop | Used by: .slide-in-top (content sections) | Purpose: Top-to-bottom slide entrance */
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ANIMATION: slideInBottom | Used by: .slide-in-bottom (cards) | Purpose: Bottom-to-top slide entrance */
+@keyframes slideInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ANIMATION CLASS: slide-in-left | Used by: .slide-in-left (sidebar) | Purpose: Left-to-right slide entrance */
+.slide-in-left {
+    animation: slideInLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ANIMATION CLASS: slide-in-top | Used by: .slide-in-top (content sections) | Purpose: Top-to-bottom slide entrance */
+.slide-in-top {
+    animation: slideInTop 0.6s ease-out forwards;
+}
+
+/* ANIMATION CLASS: slide-in-bottom | Used by: .slide-in-bottom (cards) | Purpose: Bottom-to-top slide entrance */
+.slide-in-bottom {
+    animation: slideInBottom 0.6s ease-out forwards;
+}
+
+/* Loading spinner styles */
+.loading-spinner {
+    display: none; /* Hide default spinner */
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    height: 24px; /* Ensure enough space for dots to dance */
+}
+
+.loading-dots span {
+    width: 12px; /* Increased size */
+    height: 12px; /* Increased size */
+    margin: 0 6px; /* Increased margin */
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+/* ANIMATION: bounce | Used by: .loading-dots span | Purpose: Loading dots bounce animation */
+@keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-10px) scale(1.1); }
+}
+
+.loading-text {
+    text-align: center;
+    color: var(--text-color); /* Changed to text-color for better contrast across themes */
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+/* Button specific loading styles */
+.loading-dots-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 1em; /* Adjust to button text height */
+    margin: 0 0.5em 0 0; /* Space between dots and text */
+    vertical-align: middle;
+}
+
+.loading-dots-button span {
+    width: 0.5em;
+    height: 0.5em;
+    margin: 0 0.15em;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots-button span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots-button span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots-button span:nth-child(3) { animation-delay: 0s; }
+
+.loading-text-button {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.9em; /* Slightly smaller to fit button */
+    margin-left: 0.2em;
+}
+
+/* Ensure loading text is clear on red theme */
+body.theme-red .loading-text {
+    color: var(--text-color) !important;
+}
+
+/* Card base entrance animation */
+.card.animate-in,
+.main-content-area.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Main content area SPA entrance transition */
+.main-content-area {
+    flex-grow: 1 !important;
+    margin-top: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* ANIMATION: app-row-sweep | Used by: .app-row-pulse | Purpose: Shimmer sweep across table rows */
+@keyframes app-row-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ANIMATION CLASS: app-row-pulse | Used by: .app-row-pulse | Purpose: Shimmer sweep across table rows */
+.app-row-pulse {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.app-row-pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(0, 0, 0, 0.05) 40%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.05) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: app-row-sweep 2.5s infinite linear;
+    z-index: 2;
+    pointer-events: none;
+}
+
+body.theme-matte-black .app-row-pulse::after {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(55, 214, 200, 0.08) 40%,
+        rgba(55, 214, 200, 0.16) 50%,
+        rgba(55, 214, 200, 0.08) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+/* ANIMATION: info-alert-blink | Used by: .info-alert | Purpose: Red box-shadow pulse on alerts */
+@keyframes info-alert-blink {
+    0%, 100% {
+        box-shadow: 0 0 0 1px rgba(220, 53, 69, 0.22), 0 0 0 0 rgba(220, 53, 69, 0.0);
+    }
+    50% {
+        box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.72), 0 0 14px rgba(220, 53, 69, 0.28);
+    }
+}
+
+/* Placeholder/Shimmer Effect Styles */
+.placeholder-content {
+    position: relative;
+    width: 100%;
+    height: 150px; /* Adjust height as needed for your content area */
+    overflow: hidden;
+    background-color: #f0f0f0; /* Light gray background for the placeholder */
+    border-radius: 8px;
+}
+
+/* ANIMATION CLASS: animated-background | Used by: .animated-background | Purpose: Skeleton loading shimmer */
+.animated-background {
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+    background-size: 800px 104px;
+    height: 100%;
+    position: relative;
+}
+
+.masker {
+    background: #fff; /* Color of the "holes" in the shimmer */
+    position: absolute;
+}
+
+/* Define the shapes of the placeholder content */
+.header-top, .header-left, .header-right, .header-bottom, .subheader-left, .subheader-right, .content-top, .content-first-end, .content-second-line, .content-second-end, .content-third-line, .content-third-end {
+    background: #fff;
+    position: absolute;
+}
+
+.header-top {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.header-left {
+    top: 10px;
+    left: 0;
+    width: 10px;
+    height: 40px;
+}
+
+.header-right {
+    top: 10px;
+    right: 0;
+    width: 10px;
+    height: 40px;
+}
+
+.header-bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.subheader-left {
+    top: 20px;
+    left: 40px;
+    width: 100px;
+    height: 8px;
+}
+
+.subheader-right {
+    top: 20px;
+    left: 200px;
+    width: 150px;
+    height: 8px;
+}
+
+.content-top {
+    top: 60px;
+    left: 40px;
+    right: 40px;
+    height: 8px;
+}
+
+.content-first-end {
+    top: 60px;
+    right: 40px;
+    width: 100px;
+    height: 8px;
+}
+
+.content-second-line {
+    top: 80px;
+    left: 40px;
+    right: 40px;
+    height: 8px;
+}
+
+.content-second-end {
+    top: 80px;
+    right: 40px;
+    width: 120px;
+    height: 8px;
+}
+
+.content-third-line {
+    top: 100px;
+    left: 40px;
+    right: 40px;
+    height: 8px;
+}
+
+.content-third-end {
+    top: 100px;
+    right: 40px;
+    width: 80px;
+    height: 8px;
+}
+
+/* ANIMATION: placeHolderShimmer | Used by: .animated-background | Purpose: Skeleton loading shimmer */
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+/* Interactive Swipe Animations */
+.slide-in-top {
+    animation: swipeDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.slide-in-bottom {
+    animation: swipeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ANIMATION: swipeDown (duplicate of slideInTop) | Used by: script-based | Purpose: Dropdown entrance */
+@keyframes swipeDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Exit Animations (applied via JS class removal or addition) */
+.swipe-out-top {
+    animation: swipeOutTop 0.3s ease-in forwards !important;
+}
+
+/* ANIMATION: swipeOutTop | Used by: SPA content exit | Purpose: Page exit swipe out */
+@keyframes swipeOutTop {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100%); opacity: 0; display: none; }
+}
+
+/* TRANSITION: SPA content | Purpose: Page transition smoothness */
+#spa-main-content > div {
+    transition: all 0.4s ease-in-out;
+}
+
+/* Section entrance animation base */
+.section-animate { animation-duration: 0.4s; animation-fill-mode: both; }
+
+/* ANIMATION: swipeUp | Used by: .animate-swipe-up (assistant_filter.js) | Purpose: Slide up entrance */
+@keyframes swipeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ANIMATION: swipeLeft | Used by: .animate-swipe-left (assistant_filter.js) | Purpose: Slide in from right */
+@keyframes swipeLeft { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+/* ANIMATION: swipeRight | Used by: .animate-swipe-right (assistant_filter.js) | Purpose: Slide in from left */
+@keyframes swipeRight { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+
+/* ANIMATION CLASS: animate-swipe-up | Used by: .animate-swipe-up (assistant_filter.js) | Purpose: Slide up entrance */
+.animate-swipe-up { animation: swipeUp 0.4s forwards; }
+
+/* ANIMATION CLASS: animate-swipe-left | Used by: .animate-swipe-left (assistant_filter.js) | Purpose: Slide in from right */
+.animate-swipe-left { animation: swipeLeft 0.4s forwards; }
+
+/* ANIMATION CLASS: animate-swipe-right | Used by: .animate-swipe-right (assistant_filter.js) | Purpose: Slide in from left */
+.animate-swipe-right { animation: swipeRight 0.4s forwards; }
+
+/* Card glass reflection effect */
+.card,
+.info-card-shell,
+.profile-card,
+.dashboard-panel,
+.solid-card {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Filter pill transitions */
+.filter-pill {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.filter-pill.active {
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.2);
+}
+
+/* Action button transitions */
+.action-button {
+    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-button:active {
+    transform: translateY(1px);
+}
+
+.action-button.quick-action-loading,
+.action-button.quick-action-success,
+.action-button.quick-action-error,
+.action-button.quick-action-info {
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Transition utility class */
+.transition-transform {
+    transition: transform 0.3s ease;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Card feature list hover */
+.feature-list .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-list .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Card base transition */
+.card {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Current time */
+#current-time {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Menu icon */
+.menu-icon {
+    transition: transform 0.3s ease;
+}
+
+.menu-icon.rotated {
+    transform: rotate(90deg);
+}
+
+/* Offcanvas menu */
+.offcanvas-menu-card {
+    transition: all 0.3s ease-out;
+}
+
+.offcanvas-menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.offcanvas-menu-card.show-menu {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Theme color box */
+.theme-color-box {
+    transition: transform 0.2s ease-in-out;
+}
+
+.theme-color-box:hover {
+    transform: scale(1.2);
+}
+
+/* Input row */
+.input-row input[type="text"] {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Table row hover */
+.app-data-table tbody tr,
+.log-table tbody tr {
+    transition: background-color 0.2s ease !important;
+}
+
+/* HRMS list hover */
+.hrms-list li:hover {
+    transition: background-color 0.3s ease;
+}
+
+/* Rail item transitions */
+.rail-item {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rail-item:hover i {
+    transform: scale(1.08);
+}
+
+.rail-item i {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.rail-item:active i {
+    transform: scale(0.9);
+}
+
+.rail-item.active::before {
+    transition: top 0.25s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.rail-item img {
+    transition: border-color 0.3s ease, transform 0.3s ease !important;
+}
+
+.rail-item:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Shell tool button */
+.workspace-header .shell-tool-btn {
+    transition: background 0.15s !important;
+}
+
+/* Child rail flyout */
+.child-rail-flyout {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
+}
+
+.child-rail-flyout.is-visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#railOptionsTrigger i {
+    transition: transform 0.4s ease;
+}
+
+#railOptionsTrigger.active i {
+    transform: rotate(90deg);
+    color: var(--primary-color, #00a884);
+}
+
+/* Custom select */
+.custom-select-list li {
+    transition: background 0.2s ease;
+}
+
+.custom-select-item {
+    transition: background 0.15s ease !important;
+}
+
+/* Shell vertical rail */
+html body.shell-whatsapp .shell-vertical-rail {
+    transition: width 0.3s ease !important;
+}
+
+/* Glass Aura Theme Animations */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes tooltipFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+html body.shell-whatsapp.theme-glass-aura .tooltip {
+    animation: tooltipFadeIn 0.2s ease-out !important;
+}
+
+html body.shell-whatsapp.theme-red .tooltip,
+html body.shell-whatsapp.theme-corporate-blue .tooltip,
+html body.shell-whatsapp.theme-natural-green .tooltip,
+html body.shell-whatsapp.theme-white-professional .tooltip,
+html body.shell-whatsapp.theme-blue-purple-pro .tooltip {
+    animation: tooltipFadeIn 0.2s ease-out !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row {
+    animation: glassFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-glass-aura .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes glassFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+html body.shell-whatsapp.theme-glass-aura .shell-vertical-rail {
+    animation: glassSlideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .shell-context-pane {
+    animation: glassSlideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .shell-workspace {
+    animation: glassSlideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+@keyframes glassSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+        filter: blur(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes glassSlideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+        filter: blur(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+html body.shell-whatsapp.theme-glass-aura .rail-item.active {
+    animation: glassPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes glassPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(167, 139, 250, 0); }
+}
+
+/* Glass Aura hover animations */
+html body.shell-whatsapp.theme-glass-aura .rail-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .rail-item:hover {
+    transform: scale(1.15) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .shell-tool-btn {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .shell-tool-btn:hover {
+    transform: scale(1.1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .filter-pill {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .filter-pill:hover {
+    transform: translateY(-3px) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .card:hover {
+    transform: translateY(-6px) scale(1.02) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .action-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .action-button:hover {
+    transform: translateY(-4px) scale(1.03) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .action-button:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .btn-primary:hover,
+html body.shell-whatsapp.theme-glass-aura .btn-profile:hover {
+    transform: translateY(-3px) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .assistant-search-group {
+    transition: all 0.3s ease !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .card,
+html body.shell-whatsapp.theme-glass-aura .info-card-shell,
+html body.shell-whatsapp.theme-glass-aura .profile-card,
+html body.shell-whatsapp.theme-glass-aura .dashboard-panel,
+html body.shell-whatsapp.theme-glass-aura .solid-card,
+html body.shell-whatsapp.theme-glass-aura .app-table-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .btn-primary,
+html body.shell-whatsapp.theme-glass-aura .btn-profile,
+html body.shell-whatsapp.theme-glass-aura .action-button {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .btn-primary::after,
+html body.shell-whatsapp.theme-glass-aura .btn-profile::after,
+html body.shell-whatsapp.theme-glass-aura .action-button::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent) !important;
+    background-size: 200% 100% !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+}
+
+html body.shell-whatsapp.theme-glass-aura .btn-primary:hover::after,
+html body.shell-whatsapp.theme-glass-aura .btn-profile:hover::after,
+html body.shell-whatsapp.theme-glass-aura .action-button:hover::after {
+    opacity: 1 !important;
+    animation: shimmer 1.5s linear infinite !important;
+}
+
+/* ============================================================
+   Shared hover/transition/pulse effects for clay-pastel themes
+   ============================================================ */
+
+/* --- Pulse glow for active rail items (per-theme colors) --- */
+@keyframes redPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 84, 120, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(201, 84, 120, 0); }
+}
+@keyframes corpPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(21, 101, 192, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(21, 101, 192, 0); }
+}
+@keyframes greenPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(46, 125, 50, 0); }
+}
+@keyframes whitePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+@keyframes bpPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(79, 70, 229, 0); }
+}
+
+html body.shell-whatsapp.theme-red .rail-item.active { animation: redPulse 2s ease-in-out infinite !important; }
+html body.shell-whatsapp.theme-corporate-blue .rail-item.active { animation: corpPulse 2s ease-in-out infinite !important; }
+html body.shell-whatsapp.theme-natural-green .rail-item.active { animation: greenPulse 2s ease-in-out infinite !important; }
+html body.shell-whatsapp.theme-white-professional .rail-item.active { animation: whitePulse 2s ease-in-out infinite !important; }
+html body.shell-whatsapp.theme-blue-purple-pro .rail-item.active { animation: bpPulse 2s ease-in-out infinite !important; }
+
+/* --- Hover transforms & transitions --- */
+html body.shell-whatsapp.theme-red .rail-item,
+html body.shell-whatsapp.theme-corporate-blue .rail-item,
+html body.shell-whatsapp.theme-natural-green .rail-item,
+html body.shell-whatsapp.theme-white-professional .rail-item,
+html body.shell-whatsapp.theme-blue-purple-pro .rail-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+html body.shell-whatsapp.theme-red .rail-item:hover,
+html body.shell-whatsapp.theme-corporate-blue .rail-item:hover,
+html body.shell-whatsapp.theme-natural-green .rail-item:hover,
+html body.shell-whatsapp.theme-white-professional .rail-item:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .rail-item:hover {
+    transform: scale(1.15) !important;
+}
+
+html body.shell-whatsapp.theme-red .shell-tool-btn,
+html body.shell-whatsapp.theme-corporate-blue .shell-tool-btn,
+html body.shell-whatsapp.theme-natural-green .shell-tool-btn,
+html body.shell-whatsapp.theme-white-professional .shell-tool-btn,
+html body.shell-whatsapp.theme-blue-purple-pro .shell-tool-btn {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+html body.shell-whatsapp.theme-red .shell-tool-btn:hover,
+html body.shell-whatsapp.theme-corporate-blue .shell-tool-btn:hover,
+html body.shell-whatsapp.theme-natural-green .shell-tool-btn:hover,
+html body.shell-whatsapp.theme-white-professional .shell-tool-btn:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .shell-tool-btn:hover {
+    transform: scale(1.1) !important;
+}
+
+html body.shell-whatsapp.theme-red .filter-pill,
+html body.shell-whatsapp.theme-corporate-blue .filter-pill,
+html body.shell-whatsapp.theme-natural-green .filter-pill,
+html body.shell-whatsapp.theme-white-professional .filter-pill,
+html body.shell-whatsapp.theme-blue-purple-pro .filter-pill {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+html body.shell-whatsapp.theme-red .filter-pill:hover,
+html body.shell-whatsapp.theme-corporate-blue .filter-pill:hover,
+html body.shell-whatsapp.theme-natural-green .filter-pill:hover,
+html body.shell-whatsapp.theme-white-professional .filter-pill:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .filter-pill:hover {
+    transform: translateY(-3px) !important;
+}
+
+html body.shell-whatsapp.theme-red .card:hover,
+html body.shell-whatsapp.theme-corporate-blue .card:hover,
+html body.shell-whatsapp.theme-natural-green .card:hover,
+html body.shell-whatsapp.theme-white-professional .card:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .card:hover {
+    transform: translateY(-6px) scale(1.02) !important;
+}
+
+html body.shell-whatsapp.theme-red .action-button,
+html body.shell-whatsapp.theme-corporate-blue .action-button,
+html body.shell-whatsapp.theme-natural-green .action-button,
+html body.shell-whatsapp.theme-white-professional .action-button,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+html body.shell-whatsapp.theme-red .action-button:hover,
+html body.shell-whatsapp.theme-corporate-blue .action-button:hover,
+html body.shell-whatsapp.theme-natural-green .action-button:hover,
+html body.shell-whatsapp.theme-white-professional .action-button:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button:hover {
+    transform: translateY(-4px) scale(1.03) !important;
+}
+html body.shell-whatsapp.theme-red .action-button:active,
+html body.shell-whatsapp.theme-corporate-blue .action-button:active,
+html body.shell-whatsapp.theme-natural-green .action-button:active,
+html body.shell-whatsapp.theme-white-professional .action-button:active,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+html body.shell-whatsapp.theme-red .btn-primary:hover,
+html body.shell-whatsapp.theme-red .btn-profile:hover,
+html body.shell-whatsapp.theme-corporate-blue .btn-primary:hover,
+html body.shell-whatsapp.theme-corporate-blue .btn-profile:hover,
+html body.shell-whatsapp.theme-natural-green .btn-primary:hover,
+html body.shell-whatsapp.theme-natural-green .btn-profile:hover,
+html body.shell-whatsapp.theme-white-professional .btn-primary:hover,
+html body.shell-whatsapp.theme-white-professional .btn-profile:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-primary:hover,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-profile:hover {
+    transform: translateY(-3px) !important;
+}
+
+html body.shell-whatsapp.theme-red .assistant-search-group,
+html body.shell-whatsapp.theme-corporate-blue .assistant-search-group,
+html body.shell-whatsapp.theme-natural-green .assistant-search-group,
+html body.shell-whatsapp.theme-white-professional .assistant-search-group,
+html body.shell-whatsapp.theme-blue-purple-pro .assistant-search-group {
+    transition: all 0.3s ease !important;
+}
+
+html body.shell-whatsapp.theme-red .card,
+html body.shell-whatsapp.theme-red .info-card-shell,
+html body.shell-whatsapp.theme-red .profile-card,
+html body.shell-whatsapp.theme-red .dashboard-panel,
+html body.shell-whatsapp.theme-red .solid-card,
+html body.shell-whatsapp.theme-red .app-table-card,
+html body.shell-whatsapp.theme-corporate-blue .card,
+html body.shell-whatsapp.theme-corporate-blue .info-card-shell,
+html body.shell-whatsapp.theme-corporate-blue .profile-card,
+html body.shell-whatsapp.theme-corporate-blue .dashboard-panel,
+html body.shell-whatsapp.theme-corporate-blue .solid-card,
+html body.shell-whatsapp.theme-corporate-blue .app-table-card,
+html body.shell-whatsapp.theme-natural-green .card,
+html body.shell-whatsapp.theme-natural-green .info-card-shell,
+html body.shell-whatsapp.theme-natural-green .profile-card,
+html body.shell-whatsapp.theme-natural-green .dashboard-panel,
+html body.shell-whatsapp.theme-natural-green .solid-card,
+html body.shell-whatsapp.theme-natural-green .app-table-card,
+html body.shell-whatsapp.theme-white-professional .card,
+html body.shell-whatsapp.theme-white-professional .info-card-shell,
+html body.shell-whatsapp.theme-white-professional .profile-card,
+html body.shell-whatsapp.theme-white-professional .dashboard-panel,
+html body.shell-whatsapp.theme-white-professional .solid-card,
+html body.shell-whatsapp.theme-white-professional .app-table-card,
+html body.shell-whatsapp.theme-blue-purple-pro .card,
+html body.shell-whatsapp.theme-blue-purple-pro .info-card-shell,
+html body.shell-whatsapp.theme-blue-purple-pro .profile-card,
+html body.shell-whatsapp.theme-blue-purple-pro .dashboard-panel,
+html body.shell-whatsapp.theme-blue-purple-pro .solid-card,
+html body.shell-whatsapp.theme-blue-purple-pro .app-table-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* --- Shimmer button sweep effect --- */
+html body.shell-whatsapp.theme-red .btn-primary,
+html body.shell-whatsapp.theme-red .btn-profile,
+html body.shell-whatsapp.theme-red .action-button,
+html body.shell-whatsapp.theme-corporate-blue .btn-primary,
+html body.shell-whatsapp.theme-corporate-blue .btn-profile,
+html body.shell-whatsapp.theme-corporate-blue .action-button,
+html body.shell-whatsapp.theme-natural-green .btn-primary,
+html body.shell-whatsapp.theme-natural-green .btn-profile,
+html body.shell-whatsapp.theme-natural-green .action-button,
+html body.shell-whatsapp.theme-white-professional .btn-primary,
+html body.shell-whatsapp.theme-white-professional .btn-profile,
+html body.shell-whatsapp.theme-white-professional .action-button,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-primary,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-profile,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+html body.shell-whatsapp.theme-red .btn-primary::after,
+html body.shell-whatsapp.theme-red .btn-profile::after,
+html body.shell-whatsapp.theme-red .action-button::after,
+html body.shell-whatsapp.theme-corporate-blue .btn-primary::after,
+html body.shell-whatsapp.theme-corporate-blue .btn-profile::after,
+html body.shell-whatsapp.theme-corporate-blue .action-button::after,
+html body.shell-whatsapp.theme-natural-green .btn-primary::after,
+html body.shell-whatsapp.theme-natural-green .btn-profile::after,
+html body.shell-whatsapp.theme-natural-green .action-button::after,
+html body.shell-whatsapp.theme-white-professional .btn-primary::after,
+html body.shell-whatsapp.theme-white-professional .btn-profile::after,
+html body.shell-whatsapp.theme-white-professional .action-button::after,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-primary::after,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-profile::after,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent) !important;
+    background-size: 200% 100% !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+}
+
+html body.shell-whatsapp.theme-red .btn-primary:hover::after,
+html body.shell-whatsapp.theme-red .btn-profile:hover::after,
+html body.shell-whatsapp.theme-red .action-button:hover::after,
+html body.shell-whatsapp.theme-corporate-blue .btn-primary:hover::after,
+html body.shell-whatsapp.theme-corporate-blue .btn-profile:hover::after,
+html body.shell-whatsapp.theme-corporate-blue .action-button:hover::after,
+html body.shell-whatsapp.theme-natural-green .btn-primary:hover::after,
+html body.shell-whatsapp.theme-natural-green .btn-profile:hover::after,
+html body.shell-whatsapp.theme-natural-green .action-button:hover::after,
+html body.shell-whatsapp.theme-white-professional .btn-primary:hover::after,
+html body.shell-whatsapp.theme-white-professional .btn-profile:hover::after,
+html body.shell-whatsapp.theme-white-professional .action-button:hover::after,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-primary:hover::after,
+html body.shell-whatsapp.theme-blue-purple-pro .btn-profile:hover::after,
+html body.shell-whatsapp.theme-blue-purple-pro .action-button:hover::after {
+    opacity: 1 !important;
+    animation: shimmer 1.5s linear infinite !important;
+}
+
+/* White Professional Theme Animations */
+html body.shell-whatsapp.theme-white-professional .shell-vertical-rail {
+    animation: whiteSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-white-professional .shell-context-pane {
+    animation: whiteSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-white-professional .shell-workspace {
+    animation: whiteSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row {
+    animation: whiteFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-white-professional .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes whiteFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes whiteSlideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Blue Purple Pro Theme Animations */
+html body.shell-whatsapp.theme-blue-purple-pro .shell-vertical-rail {
+    animation: bpSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-blue-purple-pro .shell-context-pane {
+    animation: bpSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-blue-purple-pro .shell-workspace {
+    animation: bpSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row {
+    animation: bpFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-blue-purple-pro .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes bpFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bpSlideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Corporate Blue Theme Animations */
+html body.shell-whatsapp.theme-corporate-blue .shell-vertical-rail {
+    animation: corpSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-corporate-blue .shell-context-pane {
+    animation: corpSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-corporate-blue .shell-workspace {
+    animation: corpSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row {
+    animation: corpFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-corporate-blue .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes corpFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes corpSlideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Red Theme Animations */
+html body.shell-whatsapp.theme-red .shell-vertical-rail {
+    animation: redSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-red .shell-context-pane {
+    animation: redSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-red .shell-workspace {
+    animation: redSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row {
+    animation: redFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-red .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-red .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes redFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes redSlideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Natural Green Theme Animations */
+html body.shell-whatsapp.theme-natural-green .shell-vertical-rail {
+    animation: greenSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-natural-green .shell-context-pane {
+    animation: greenSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.1s !important;
+}
+
+html body.shell-whatsapp.theme-natural-green .shell-workspace {
+    animation: greenSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+    animation-delay: 0.15s !important;
+}
+
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div,
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row {
+    animation: greenFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) both !important;
+}
+
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div:nth-child(1),
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row:nth-child(1) { animation-delay: 0.05s !important; }
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div:nth-child(2),
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row:nth-child(2) { animation-delay: 0.1s !important; }
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div:nth-child(3),
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row:nth-child(3) { animation-delay: 0.15s !important; }
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div:nth-child(4),
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row:nth-child(4) { animation-delay: 0.2s !important; }
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll > div:nth-child(5),
+html body.shell-whatsapp.theme-natural-green .workspace-content-scroll .row:nth-child(5) { animation-delay: 0.25s !important; }
+
+@keyframes greenFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes greenSlideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Matte Black Theme button hover transitions */
+html body.shell-whatsapp.theme-matte-black .action-button:hover {
+    transform: translateY(-2px) !important;
+}
+
+html body.shell-whatsapp.theme-matte-black .btn-primary:hover {
+    transform: translateY(-2px) !important;
+}
+
+html body.shell-whatsapp.theme-matte-black .card:hover {
+    transition: all 0.3s ease !important;
+}
+
+/* Alert loading content */
+.alert-loading-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 80px;
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+.loading-dots {
+    margin: 5px auto;
+}
+
+.loading-text {
+    margin-top: 5px;
+}
+
+/* --- From admin_card.php --- */
+    @keyframes smooth-row-sweep {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }

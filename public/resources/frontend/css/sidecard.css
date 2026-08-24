@@ -1,0 +1,490 @@
+/* ============================================================
+   Side Card (Context Pane) – Professional Refactor
+   All side card / context-pane rules with theme awareness.
+   Loaded LAST so it overrides any conflicting rules.
+   ============================================================ */
+
+/* ---------------------------------------------------------------
+   MAINTENANCE RULES
+   - All visible sidecard content must follow one horizontal contract.
+   - The contract applies to: logo/title row, search field, filter ribbon, action panel, button rows.
+   - Control left/right spacing only through `--sidecard-inline-pad` on `.sidecard-inner-rail`.
+   - Header and body must use the same `.sidecard-inner-rail` wrapper.
+   - Child blocks must not add their own extra left/right margins or separate inline paddings.
+   - Do not add width: 0, centered single-button widths, or random inline margins here.
+   - If alignment breaks, inspect these selectors first:
+     `.sidecard-inner-rail`, `.assistant-search-wrapper`,
+     `.shell-filter-pills`, `#quick-actions-panel`, `.button-group`.
+   -------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------
+   Context Pane Container
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane {
+    --sidecard-inline-pad: 10px;
+    --sidecard-control-height: 40px;
+    --sidecard-button-height: 44px;
+    width: var(--shell-context-width, 280px) !important;
+    min-width: var(--shell-context-width, 280px) !important;
+    max-width: var(--shell-context-width, 280px) !important;
+    flex-shrink: 0 !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    min-height: 0 !important;
+    background: var(--context-pane-bg, #ffffff) !important;
+    background-color: var(--context-pane-bg, #ffffff) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-right: 1px solid var(--border-color, #d1d7db) !important;
+    z-index: 20 !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+html body.shell-whatsapp .shell-context-pane::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------
+   Context Header (Assistant title, search, filter pills)
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .context-header {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    padding: 14px 0 12px 0 !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* ---------------------------------------------------------------
+   Context Body (scrollable action area with hidden scrollbar)
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .context-body {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 0 14px 0 !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-gutter: stable !important;
+    box-sizing: border-box !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar-track {
+    display: none !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body::-webkit-scrollbar-thumb {
+    display: none !important;
+}
+
+/* Shared inner rail:
+   Header content and body content must use the same wrapper so every row follows
+   the exact same horizontal width without relying on separate parent paddings. */
+html body.shell-whatsapp .shell-context-pane .sidecard-inner-rail {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: var(--sidecard-inline-pad) !important;
+    padding-right: var(--sidecard-inline-pad) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body > * {
+    flex-shrink: 0 !important;
+    min-height: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body > #quick-actions-panel {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .assistant-search-wrapper,
+html body.shell-whatsapp .shell-context-pane .assistant-search-field,
+html body.shell-whatsapp .shell-context-pane #quick-actions-panel,
+html body.shell-whatsapp .shell-context-pane #actionForm,
+html body.shell-whatsapp .shell-context-pane [data-section],
+html body.shell-whatsapp .shell-context-pane .shell-filter-pills,
+html body.shell-whatsapp .shell-context-pane .button-group,
+html body.shell-whatsapp .shell-context-pane .action-section-title,
+html body.shell-whatsapp .shell-context-pane .mt-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ---------------------------------------------------------------
+   Filter Ribbon Alignment Contract
+   - Left align pills with the search field
+   - Slightly more top breathing room
+   - Slightly tighter bottom spacing
+   - Keep the ribbon on the exact same content rail as input and button rows
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .shell-filter-pills {
+    display: flex !important;
+    margin-top: 10px !important;
+    margin-bottom: 4px !important;
+    padding-top: 2px !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .shell-filter-pills .filter-pill {
+    flex: 0 0 auto !important;
+}
+
+html body.shell-whatsapp .shell-context-pane #actionForm,
+html body.shell-whatsapp .shell-context-pane [data-section] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* ---------------------------------------------------------------
+   Button Groups inside Context Pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .button-group {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    grid-auto-flow: dense !important;
+    align-items: stretch !important;
+    justify-items: stretch !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+
+/* ---------------------------------------------------------------
+   Action Buttons inside Context Pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .action-button {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 8px !important;
+    min-height: var(--sidecard-button-height) !important;
+    height: var(--sidecard-button-height) !important;
+    border-radius: 10px !important;
+    font-size: var(--font-sm, 0.8rem) !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    text-align: center !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: var(--sidecard-btn-top-highlight, inset 0 2px 0 rgba(255,255,255,0.12)),
+                var(--sidecard-btn-bottom-reflection, inset 0 -1px 0 rgba(0,0,0,0.12)),
+                0 2px 6px rgba(0,0,0,0.08) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .button-group > .action-button {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .button-group > .action-button.flex-fill {
+    flex: 0 1 auto !important;
+    width: 100% !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .button-group > .action-button:only-child {
+    grid-column: 1 / -1 !important;
+    justify-self: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button i {
+    flex-shrink: 0 !important;
+    font-size: 0.9rem !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .assistant-search-field {
+    min-height: var(--sidecard-control-height) !important;
+    height: var(--sidecard-control-height) !important;
+}
+
+
+/* ---------------------------------------------------------------
+   Section Titles inside Context Pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .action-section-title {
+    margin: 16px 0 10px 0 !important;
+    padding: 8px 0 0 0 !important;
+    font-size: 0.73rem !important;
+    font-weight: 700 !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-section-title:first-child {
+    margin-top: 0 !important;
+    border-top: none !important;
+}
+
+
+html body.shell-whatsapp .shell-context-pane [data-section] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ---------------------------------------------------------------
+   Top margin overrides for dashboard button
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .mt-3,
+html body.shell-whatsapp .shell-context-pane .mt-4 {
+    margin-top: 8px !important;
+}
+
+/* ---------------------------------------------------------------
+   Quick-actions-panel overrides
+   -------------------------------------------------------------- */
+html body.shell-whatsapp #quick-actions-panel {
+    background: transparent !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: visible !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-body > #quick-actions-panel {
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* ---------------------------------------------------------------
+   Card stripping inside context pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .card::before,
+html body.shell-whatsapp .shell-context-pane .card::after {
+    display: none !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .card-header {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    min-height: auto !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .card-body {
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* ---------------------------------------------------------------
+   Context separator hiding
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .context-body hr,
+html body.shell-whatsapp .context-body .border-top,
+html body.shell-whatsapp [data-section] + hr,
+html body.shell-whatsapp [data-section] + .border-top {
+    display: none !important;
+    border: none !important;
+}
+
+html body.shell-whatsapp .context-body .pt-0.pb-3 {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+}
+
+/* ---------------------------------------------------------------
+   Canvas sizing inside context pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane canvas {
+    max-height: 180px !important;
+}
+
+/* ---------------------------------------------------------------
+   Dashboard button inside context pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .btn-outline-success {
+    border-radius: 8px !important;
+    font-size: 0.78rem !important;
+    padding: 8px 12px !important;
+}
+
+/* ---------------------------------------------------------------
+   Context pane card titles
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .card-title {
+    background: none !important;
+    font-size: 0.75rem !important;
+    padding: 0 !important;
+    min-height: auto !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .context-header h4 {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: var(--text-color);
+}
+
+/* ---------------------------------------------------------------
+   Dashboard charts in context pane
+   -------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .dashboard-chart-legend-shell {
+    background: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .dashboard-chart-legend-list li {
+    color: inherit !important;
+}
+
+/* -----------------------------------------------------------------
+   Theme-wise action button colors with CSS variables
+   Fall back to existing gradients to avoid visual regressions.
+   Only apply inside pane to maintain professional appearance.
+   ----------------------------------------------------------------- */
+html body.shell-whatsapp .shell-context-pane .action-button.btn-info-action {
+    background: var(--sidecard-action-bg-info, linear-gradient(135deg, #818cf8, #6366f1)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-create-action {
+    background: var(--sidecard-action-bg-create, linear-gradient(135deg, #34d399, #059669)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-disable-action {
+    background: var(--sidecard-action-bg-disable, linear-gradient(135deg, #f87171, #dc2626)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-reset-action {
+    background: var(--sidecard-action-bg-reset, linear-gradient(135deg, #fb923c, #ea580c)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-unlock-action {
+    background: var(--sidecard-action-bg-unlock, linear-gradient(135deg, #60a5fa, #2563eb)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-enable-action {
+    background: var(--sidecard-action-bg-enable, linear-gradient(135deg, #a78bfa, #7c3aed)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-manual-create-action {
+    background: var(--sidecard-action-bg-manual, linear-gradient(135deg, #f472b6, #db2777)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-directory-action {
+    background: var(--sidecard-action-bg-directory, linear-gradient(135deg, #fbbf24, #d97706)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-modify-action {
+    background: var(--sidecard-action-bg-modify, linear-gradient(135deg, #2dd4bf, #0d9488)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-report-action {
+    background: var(--sidecard-action-bg-report, linear-gradient(135deg, #14b8a6, #0d9488)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-sync-action { background: var(--sidecard-action-bg-sync, linear-gradient(135deg, #3b82f6, #2563eb)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-mapping-action { background: var(--sidecard-action-bg-mapping, linear-gradient(135deg, #8b5cf6, #7c3aed)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-users-action { background: var(--sidecard-action-bg-users, linear-gradient(135deg, #10b981, #059669)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-health-action { background: var(--sidecard-action-bg-health, linear-gradient(135deg, #06b6d4, #0891b2)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-groups-action { background: var(--sidecard-action-bg-groups, linear-gradient(135deg, #f59e0b, #d97706)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-reports-action { background: var(--sidecard-action-bg-reports, linear-gradient(135deg, #ec4899, #db2777)) !important; color: #ffffff !important; border-color: transparent !important; }
+html body.shell-whatsapp .shell-context-pane .action-button.btn-security-action { background: var(--sidecard-action-bg-security, linear-gradient(135deg, #5fa8c9, #4d8fb5)) !important; color: #ffffff !important; border-color: transparent !important; }
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-dashboard-action {
+    background: var(--sidecard-action-bg-dashboard, linear-gradient(135deg, #14b8a6, #0d9488)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button.btn-update-action {
+    background: var(--sidecard-action-bg-update, linear-gradient(135deg, #6b7280, #4b5563)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+/* Maintain clear focus for accessibility */
+html body.shell-whatsapp .shell-context-pane .action-button:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.5) !important;
+    outline-offset: 2px !important;
+}
+
+html body.shell-whatsapp .shell-context-pane .action-button:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}

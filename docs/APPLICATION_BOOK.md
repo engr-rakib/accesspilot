@@ -47,7 +47,7 @@ AccessPilot is a **complete corporate identity command center**. With it, one IT
 |-------------|----------------|---------------|
 | Operating system | Any modern Linux distribution with Docker + Docker Compose | Windows Server 2019/2022 with IIS |
 | Web serving | Managed by the container stack (HTTP + HTTPS) | IIS 10 |
-| Application runtime | PHP 8.2 (bundled in the container image) | PHP 8.5 (ship/install with the IIS package) |
+| Application runtime | PHP 8.4 (bundled in the container image) | PHP 8.5 (ship/install with the IIS package) |
 | Required PHP extensions | Bundled with the installer | Bundled with the installer package |
 | Secure runtime area | Mounted outside the web root | Protected directory outside the web root |
 | Storage | Vault + log volume (host-attached) | Vault + log directory |

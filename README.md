@@ -12,7 +12,7 @@
 
 ![Version](https://img.shields.io/badge/version-7.43-blue)
 ![Platform](https://img.shields.io/badge/platform-Linux%20Docker%20%7C%20Windows-success)
-![Runtime](https://img.shields.io/badge/PHP-8.2%20%2B%20Docker%20(recommended)-8892BF?logo=php&logoColor=white)
+![Runtime](https://img.shields.io/badge/PHP-8.4%20%2B%20Docker%20(recommended)-8892BF?logo=php&logoColor=white)
 ![Security](https://img.shields.io/badge/license-RSA--2048%20signed-red)
 ![RBAC](https://img.shields.io/badge/RBAC-270%2B%20permission%20keys-orange)
 
@@ -277,7 +277,7 @@ AccessPilot runs on both major platforms from the **same codebase**. **Linux + D
 | Aspect | ⭐ Linux (Docker) — recommended | Windows (IIS) |
 |--------|--------------------------------|---------------|
 | Runtime | Container stack (HTTP + HTTPS managed) | Native IIS site with certificate binding |
-| PHP | 8.2 bundled in the container image | 8.5 shipped with the IIS package |
+| PHP | 8.4 bundled in the container image | 8.5 shipped with the IIS package |
 | HTTPS | Managed by the container stack (auto self-signed → bring your own cert) | IIS certificate binding |
 | Secure area | Mounted outside the web root (`/data/secure`) | Protected directory outside the web root |
 | Directory access | Native LDAP channel | Native LDAP channel |
